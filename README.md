@@ -1,0 +1,1 @@
+This app is created by Hasan Osman for the Capstone Project of Udacity's Front End Web Developer Nano Degree programme. It is a travel app which takes user input of travel dates and location of travel and returns the weather conditions. 
