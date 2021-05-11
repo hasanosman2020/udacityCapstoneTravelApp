@@ -1,5 +1,5 @@
 /* Global Variables */
-
+/*
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
 const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
 
@@ -9,11 +9,19 @@ let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear()
 
 /** Personal API key for OpenWeatherMap API */
 
+document.getElementById('depart-btn').addEventListener('click', handleSubmit)
+
+function handleSubmit (event) {
+  event.preventDefault()
+
+  console.log("Yes, it's working")
+}
+
 //Event listener to add function to existing HTML DOM element
-document.getElementById('generate').addEventListener('click', performAction)
+//document.getElementById('generate').addEventListener('click', performAction)
 
 //Function called by event listener - here the performAction function handles the name of the city entered by the user and the user's feelings as entered by the user and executes the getWeather function.
-function performAction (e) {
+/*function performAction (e) {
   const newCity = document.getElementById('city').value
   //const feelings = document.getElementById('feelings').value
   console.log(newDate)
@@ -83,4 +91,4 @@ const updateUI = async () => {
   } catch (error) {
     console.log('error', error)
   }
-}
+*/
