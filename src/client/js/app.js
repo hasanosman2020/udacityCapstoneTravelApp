@@ -1,5 +1,6 @@
 /* Global Variables */
-/*
+
+/** Personal API key for OpenWeatherMap API */
 const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
 const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
 
@@ -7,22 +8,20 @@ const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
 let d = new Date()
 let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear()
 
-/** Personal API key for OpenWeatherMap API */
-
+//Event listener to add function to existing DOM element (button with id "depart-btn") to create an event when the button is clicked
 document.getElementById('depart-btn').addEventListener('click', handleSubmit)
 
 function handleSubmit (event) {
   event.preventDefault()
 
-  console.log("Yes, it's working")
-}
+  console.log(':::Form Submitted:::')
 
-//Event listener to add function to existing HTML DOM element
-//document.getElementById('generate').addEventListener('click', performAction)
-
-//Function called by event listener - here the performAction function handles the name of the city entered by the user and the user's feelings as entered by the user and executes the getWeather function.
-/*function performAction (e) {
+  //the handleSubmit function also handles the name of the city as entered by the user
   const newCity = document.getElementById('city').value
+
+  //Function called by event listener - here the performAction function handles the name of the city entered by the user and the user's feelings as entered by the user and executes the getWeather function.
+  //function performAction (e) {
+
   //const feelings = document.getElementById('feelings').value
   console.log(newDate)
 
@@ -57,9 +56,10 @@ const getWeather = async (baseURL, newCity, apiKey) => {
 
 const postData = async (
   url = '/add',
-  data = { date: newDate, temp: data.list[0].main.temp, content: feelings }
+  data = { date: newDate, temp: data.list[0].main.temp }
 ) => {
   console.log(data)
+
   const response = await fetch(url, {
     method: 'POST',
     credentials: 'same-origin',
@@ -87,8 +87,7 @@ const updateUI = async () => {
     const allData = await request.json()
     document.getElementById('date').innerHTML = `Date: ${allData.date}`
     document.getElementById('temp').innerHTML = `Temperature: ${allData.temp}`
-    document.getElementById('content').innerHTML = `I feel: ${allData.content}`
   } catch (error) {
     console.log('error', error)
   }
-*/
+}
