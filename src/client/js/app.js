@@ -30,7 +30,7 @@ function handleSubmit (event) {
 
     //then forward the data received from the API (done by invoking the getWeather function) to the server via a post request along with the date (done automatically by JavaScript) and the user's feelings (entered by the user)
     //the server will store the date, the temperature and the content
-    postData('http://localhost:8080/add', {
+    postData('http://localhost:3000/add', {
       date: newDate,
       temp: data.main.temp
     })
@@ -82,7 +82,7 @@ const postData = async (
 //the function amends the values of the data's objects so they can reflect the value that is being stored for them in the server by using inner.HTML
 
 const updateUI = async () => {
-  const request = await fetch('http://localhost:8080/all')
+  const request = await fetch('http://localhost:3000/all')
   try {
     const allData = await request.json()
     document.getElementById('date').innerHTML = `Date: ${allData.date}`

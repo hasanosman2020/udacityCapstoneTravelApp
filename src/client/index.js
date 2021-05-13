@@ -1,7 +1,3 @@
-document.getElementById('depart-btn').addEventListener('click', handleSubmit)
+import { handleSubmit } from 'src/client/app.js'
 
-function handleSubmit (event) {
-  event.preventDefault()
-
-  console.log("Yes, it's working")
-}
+import './styles/style.css'
