@@ -1,7 +1,9 @@
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 
-module.exportsd = {
+module.exports = {
   entry: './src/client/index.js',
   mode: 'development',
   devtool: 'source-map',
@@ -29,7 +31,27 @@ module.exportsd = {
       {
         test: /\.css$/i,
         use: ['css-loader']
+      },
+      {
+        test: /\.(png | jpe?g | gif)$/i,
+        use: [{ loader: 'file-loader' }]
+      },
+      {
+        test: /\.html$/i,
+        loader: 'html-loader'
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/c;ient/views/index.html',
+      filename: './index.html'
+    }),
+    new CleanWebpackPlugin({
+      dry: true,
+      verbose: true,
+      cleanStaleWebpackAssets: true,
+      protectWebpackAssets: false
+    })
+  ]
 }
