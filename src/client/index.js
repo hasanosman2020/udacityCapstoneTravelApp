@@ -1,7 +1,5 @@
-import { handleSubmit } from 'src/client/app.js'
+import './styles/style.scss'
 
-import './styles/style.css'
-
-import { updateUI } from 'src/client/app.js'
+import { updateUI } from './client/js/app.js'
 
 export { updateUI }
