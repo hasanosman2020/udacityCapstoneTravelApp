@@ -4,13 +4,18 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-  entry: './src/client/index.js',
+  entry: 'src/client/index.js',
   mode: 'development',
   devtool: 'source-map',
   stats: 'verbose',
   output: {
     libraryTarget: 'var',
     library: 'Client'
+  },
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 9000
   },
   module: {
     rules: [
@@ -44,7 +49,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/c;ient/views/index.html',
+      template: './src/client/views/index.html',
       filename: './index.html'
     }),
     new CleanWebpackPlugin({
