@@ -1,5 +1,5 @@
 import './styles/style.scss'
 
-import { updateUI } from './client/js/app'
+import { updateUI } from './js/app'
 
 export { updateUI }

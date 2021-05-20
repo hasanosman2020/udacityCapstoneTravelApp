@@ -1,81 +1,54 @@
-Html Webpack Plugin:
-<pre>
-  Error: Child compilation failed:
-  Entry module not found: Error: Can't resolve '/Users/hasanal-ahmar/Desktop/uda  cityCapstoneTravelApp/src/c;ient/views/index.html' in '/Users/hasanal-ahmar/De  sktop/udacityCapstoneTravelApp':
-  Error: Can't resolve '/Users/hasanal-ahmar/Desktop/udacityCapstoneTravelApp/sr  c/c;ient/views/index.html' in '/Users/hasanal-ahmar/Desktop/udacityCapstoneTra  velApp'
-  
-  - compiler.js:79 
-    [udacityCapstoneTravelApp]/[html-webpack-plugin]/lib/compiler.js:79:16
-  
-  - Compiler.js:343 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compiler.js:343:11
-  
-  - Compiler.js:681 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compiler.js:681:15
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compiler.js:678 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compiler.js:678:31
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compilation.js:1423 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1423:35
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compilation.js:1414 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1414:32
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compilation.js:1409 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1409:36
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compilation.js:1405 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1405:32
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compilation.js:1342 Compilation.seal
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1342:27
-  
-  - Compiler.js:675 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compiler.js:675:18
-  
-  - Compilation.js:1261 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1261:4
-  
-  
-  - Hook.js:154 AsyncSeriesHook.lazyCompileHook
-    [udacityCapstoneTravelApp]/[tapable]/lib/Hook.js:154:20
-  
-  - Compilation.js:1253 Compilation.finish
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1253:28
-  
-  - Compiler.js:672 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compiler.js:672:17
-  
-  
-  - Compilation.js:1185 
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1185:12
-  
-  - Compilation.js:1044 errorAndCallback
-    [udacityCapstoneTravelApp]/[webpack]/lib/Compilation.js:1044:6
-  
-</pre><script type="text/javascript" src="main.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Travel Planner - Udacity Capstone</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="holder headline">Travel Planner</div>
+      <div class="holder destination">
+        <label for="destination">Enter your destination</label>
+        <input type="text" id="city" placeholder="enter your destination" />
+      </div>
+      <div class="holder departure">
+        <label for="departure">Enter your date of departure</label>
+        <input
+          type="date"
+          id="departure"
+          placeholder="insert your departure date"
+        />
+      </div>
+      <div class="holder return">
+        <label for="return">Enter your return date</label>
+        <input
+          type="date"
+          id="return"
+          placeholder="insert your date of arrival"
+        />
+      </div>
+      <button id="depart-btn" type="submit">Let's Go!</button>
+      <button id="remove-btn" type="submit">Remove Journey</button>
+      <textarea
+        class="myInput"
+        id="notes"
+        placeholder="Enter any notes for your trip"
+        rows="10"
+        cols="50"
+      ></textarea>
+      <button id="generate" type="submit">Save Note</button>
+    </div>
+    <div id="entryHolder">
+      <div id="city"></div>
+      <div id="temperature"></div>
+      <img alt="insert destination image" class="image-destination" />
+    </div>
+    <div class="holder entry">
+      <div class="last-trip">Most Recent Trip</div>
+    </div>
+  <script type="text/javascript" src="main.js"></script></body>
+</html>

@@ -2,9 +2,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
-  entry: 'src/client/index.js',
+  entry: './src/client/index.js',
   mode: 'development',
   devtool: 'source-map',
   stats: 'verbose',
@@ -15,7 +16,9 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000
+    port: 9000,
+    writeToDisk: true,
+    hot: true
   },
   module: {
     rules: [
@@ -57,6 +60,7 @@ module.exports = {
       verbose: true,
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false
-    })
+    }),
+    new Dotenv()
   ]
 }
