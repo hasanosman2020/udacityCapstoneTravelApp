@@ -26,7 +26,7 @@ body {
 }
 
 label {
-  display: block;
+  /*display: block;*/
   font-size: 27px;
 }
 

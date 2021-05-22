@@ -2,7 +2,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
-const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: './src/client/index.js',
@@ -60,7 +59,6 @@ module.exports = {
       verbose: true,
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false
-    }),
-    new Dotenv()
+    })
   ]
 }
