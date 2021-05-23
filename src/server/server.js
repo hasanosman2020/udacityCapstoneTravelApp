@@ -1,4 +1,5 @@
 require('dotenv').config()
+const fetch = require('node-fetch')
 
 // Setup empty JS object to act as endpoint for all routes
 const projectData = {}

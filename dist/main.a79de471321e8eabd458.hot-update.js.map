@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://Client/./src/client/index.js"],"names":[],"mappings":";;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAEA","file":"main.a79de471321e8eabd458.hot-update.js","sourcesContent":["import './styles/style.scss'\n\nimport { updateUI } from './js/app'\n\nimport 'regenerator-runtime'\n"],"sourceRoot":""}

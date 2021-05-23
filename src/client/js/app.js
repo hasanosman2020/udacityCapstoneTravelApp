@@ -1,75 +1,75 @@
 /* Global Variables */
 
 /** Personal API key for OpenWeatherMap API */
-const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
-const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
+//const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
+//const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
 
-// Create a new date instance dynamically with JS
-let d = new Date()
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear()
-
-//Event listener to add function to existing DOM element (button with id "depart-btn") to create an event when the button is clicked
+//Event listener to add function to existing DOM element ("Let's Go!" button with id "depart-btn") to create an event when the button is clicked
+import fetch from 'node-fetch'
 document.getElementById('depart-btn').addEventListener('click', performAction)
 
-function performAction (e) {
-  const newCity = document.getElementById('city').value
+//Function that fires off when the click has been registered
+async function performAction (e) {
+  e.preventDefault()
+
+  //Before clicking on the "Let's Go!" button, the user first inputs the city of his destination and dates of his journey - this information is stored in variables.
+  const destinationCity = document.getElementById('destination-city').value
+  const departureDate = document.getElementById('date-departure').value
+  const returnDate = document.getElementById('date-return').value
   /* const feelings = document.getElementById('feelings').value*/
-  console.log(newDate)
 
-  getWeather(baseURL, newCity, apiKey).then(function (data) {
-    console.log(data)
+  // Create a new date instance dynamically with JS
+  let d = new Date()
+  let currentDate = d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear()
 
-    postData('http://localhost:3000/add', {
-      date: newDate,
-      temp: data.main.temp,
-      content: feelings
+  if (parseInt(departureDate) >= parseInt(currentDate)) {
+    const departDate = departureDate
+
+    await postData('/clientData', {
+      city: city,
+      date: departDate
     })
+
+    //function to call servers after post request
+    await callServer('/getWeatherbit')
+    await callServer('/getPix')
+
+    const travelData = await callServer('/getData')
+    console.log(travelData)
+
     updateUI()
+  } else {
+    alert('Plesase enter a valid date')
+  }
+}
+
+//POST route for server
+async function postData (url, tripData) {
+  const response = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(tripData)
   })
+}
 
-  const getWeather = async (baseURL, newCity, apiKey) => {
-    const res = await fetch(`${baseURL} ${newCity}${apiKey}`)
-    try {
-      const data = await res.json()
-      return data
-    } catch (error) {
-      console.log('error', error)
+//call to server for data
+const callServer = async url => {
+  const asyncParams = {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Content-Type': 'application/json'
     }
   }
-
-  const postData = async (
-    url = '/add',
-    data = { date: newDate, temp: data.list[0].main.temp, content: feelings }
-  ) => {
-    console.log(data)
-    const response = await fetch(url, {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-    try {
-      const newData = await response.json()
-      console.log(newData)
-      return newData
-    } catch (error) {
-      console.log('error', error)
-    }
-  }
-
-  const updateUI = async () => {
-    const request = await fetch('http://localhost:3000/all')
-    try {
-      const allData = await request.json()
-      document.getElementById('date').innerHTML = `Date: ${allData.date}`
-      document.getElementById('temp').innerHTML = `Temperature: ${allData.temp}`
-      document.getElementById(
-        'content'
-      ).innerHTML = `I feel: ${allData.content}`
-    } catch (error) {
-      console.log('error', error)
-    }
+  const res = await fetch(url, asyncParams)
+  try {
+    const data = await res.json()
+    return data
+  } catch {
+    console.log(`Error: ${res.statusText}`)
   }
 }
