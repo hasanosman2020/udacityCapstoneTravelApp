@@ -74,9 +74,16 @@ app.post('/clientData', async (req, res) => {
     projectData['countryName'] = geoData.geonames[0].countryName
     projectData['cityName'] = geoData.geonames[0].cityName
 
-    console.log('apiData:', projectData)
+    console.log('allData:', projectData)
     res.send(projectData)
   } catch (err) {
     console.log('error', err)
   }
+})
+
+//GET endpoint gets the data for the UI
+app.get('/getData', (req, res) => {
+  console.log(projectData)
+  res.send(projectData)
+  res.json({ message: 'Data received.' })
 })

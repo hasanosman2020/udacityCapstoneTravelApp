@@ -6,6 +6,7 @@
 
 //Event listener to add function to existing DOM element ("Let's Go!" button with id "depart-btn") to create an event when the button is clicked
 import fetch from 'node-fetch'
+
 document.getElementById('depart-btn').addEventListener('click', performAction)
 
 //Function that fires off when the click has been registered
@@ -26,7 +27,7 @@ async function performAction (e) {
     const departDate = departureDate
 
     await postData('/clientData', {
-      city: city,
+      city: destinationCity,
       date: departDate
     })
 
@@ -39,11 +40,10 @@ async function performAction (e) {
 
     updateUI()
   } else {
-    alert('Plesase enter a valid date')
+    alert('Please enter a valid date')
   }
 }
 
-//POST route for server
 async function postData (url, tripData) {
   const response = await fetch(url, {
     method: 'POST',
@@ -73,3 +73,16 @@ const callServer = async url => {
     console.log(`Error: ${res.statusText}`)
   }
 }
+
+//function that updates the UI with a call to the server
+async function updateUI () {
+  const request = await fetch('/getData')
+  const allData = await request.json()
+  console.log(allData)
+  document.getElementById('city').innerHTML = allData.city
+  document.getElementById('date').innerHTML = allData.date
+  document.getElementById('temp').innerHTML = allData.temp
+  document.getElementById('content').innerHTML = `Notes: ${allData.content}`
+}
+
+export { callServer, updateUI }
