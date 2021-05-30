@@ -1,12 +1,12 @@
-/* Global Variables */
+//* Global Variables */
 
 /** Personal API key for OpenWeatherMap API */
 //const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
 //const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
 
-//Event listener to add function to existing DOM element ("Let's Go!" button with id "depart-btn") to create an event when the button is clicked
 import fetch from 'node-fetch'
 
+//Event listener to add function to existing DOM element ("Let's Go!" button with id "depart-btn") to create an event when the button is clicked
 document.getElementById('depart-btn').addEventListener('click', performAction)
 
 //Function that fires off when the click has been registered
@@ -27,23 +27,25 @@ async function performAction (e) {
     const departDate = departureDate
 
     await postData('/clientData', {
-      city: destinationCity,
+      city: city,
       date: departDate
     })
 
     //function to call servers after post request
     await callServer('/getWeatherbit')
     await callServer('/getPix')
+    await callServer('/getRest')
 
     const travelData = await callServer('/getData')
     console.log(travelData)
 
     updateUI()
   } else {
-    alert('Please enter a valid date')
+    alert('Plesase enter a valid date')
   }
 }
 
+//POST route for server
 async function postData (url, tripData) {
   const response = await fetch(url, {
     method: 'POST',
@@ -65,6 +67,7 @@ const callServer = async url => {
       'Content-Type': 'application/json'
     }
   }
+
   const res = await fetch(url, asyncParams)
   try {
     const data = await res.json()
@@ -76,13 +79,10 @@ const callServer = async url => {
 
 //function that updates the UI with a call to the server
 async function updateUI () {
-  const request = await fetch('/getData')
-  const allData = await request.json()
-  console.log(allData)
-  document.getElementById('city').innerHTML = allData.city
-  document.getElementById('date').innerHTML = allData.date
-  document.getElementById('temp').innerHTML = allData.temp
-  document.getElementById('content').innerHTML = `Notes: ${allData.content}`
+  const response = await fetch('/getData')
+  const userData = await response.json()
+  console.log(userData)
+  document.querySelector('.city').innerHTML = userData.city
 }
 
 export { callServer, updateUI }

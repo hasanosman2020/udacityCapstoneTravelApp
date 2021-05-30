@@ -2,7 +2,7 @@ require('dotenv').config()
 const fetch = require('node-fetch')
 
 // Setup empty JS object to act as endpoint for all routes
-const projectData = {}
+let projectData = {}
 
 // Require Express to run server and routes
 const express = require('express')
@@ -57,12 +57,12 @@ app.post('/clientData', async (req, res) => {
   const geoNamesUrl = await fetch(
     `${baseURL}${cityName}&maxRows=10&username=${geoNamesUsername}`,
     {
-      method: 'POST',
-      credentials: 'same-origin',
+      method: 'POST'
+      /*credentials: 'same-origin',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
-      }
+      }*/
     }
   )
 
@@ -74,16 +74,17 @@ app.post('/clientData', async (req, res) => {
     projectData['countryName'] = geoData.geonames[0].countryName
     projectData['cityName'] = geoData.geonames[0].cityName
 
-    console.log('allData:', projectData)
+    console.log('apiData:', projectData)
     res.send(projectData)
   } catch (err) {
     console.log('error', err)
   }
 })
 
+/*
 //GET endpoint gets the data for the UI
 app.get('/getData', (req, res) => {
   console.log(projectData)
   res.send(projectData)
   res.json({ message: 'Data received.' })
-})
+})*/

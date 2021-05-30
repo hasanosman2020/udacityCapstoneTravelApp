@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Travel Planner - Udacity Capstone</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <div class="holder headline">Travel Planner</div>
+      <div class="holder destination">
+        <label for="destination-city">Destination:</label>
+        <input
+          type="text"
+          id="destination-city"
+          placeholder="enter your destination"
+        />
+      </div>
+      <div class="holder departure">
+        <label for="date-departure">Date of Departure:</label>
+        <input
+          type="date"
+          id="date-departure"
+          placeholder="insert your departure date"
+        />
+      </div>
+      <div class="holder return">
+        <label for="date-return">Return Date:</label>
+        <input
+          type="date"
+          id="date-return"
+          placeholder="insert your date of arrival"
+        />
+      </div>
+      <button id="remove-btn" type="submit">Remove Journey</button>
+      <button id="depart-btn" type="submit">Let's Go!</button>
+      <textarea
+        class="myInput"
+        id="content"
+        placeholder="Enter any notes for your trip"
+        rows="10"
+        cols="50"
+      ></textarea>
+      <button id="generate" type="submit">Save</button>
+    </div>
+    <div id="entryHolder">
+      <div id="city"></div>
+      <div id="temperature"></div>
+      <img alt="insert destination image" class="image-destination" />
+    </div>
+    <div class="holder entry">
+      <div class="last-trip">Most Recent Trip</div>
+    </div>
+  <script type="text/javascript" src="main.js"></script></body>
+</html>

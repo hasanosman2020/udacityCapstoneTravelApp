@@ -22,15 +22,14 @@
   },
   "homepage": "https://github.com/hasanosman2020/udacityCapstoneTravelApp#readme",
   "dependencies": {
-    "@babel/runtime": "^7.14.0",
     "express": "^4.17.1",
     "node-sass": "^4.14.1",
+    "regenerator-runtime": "^0.13.7",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
-    "@babel/plugin-transform-runtime": "^7.14.3",
     "@babel/preset-env": "^7.14.2",
     "babel-loader": "^8.2.2",
     "body-parser": "^1.19.0",
