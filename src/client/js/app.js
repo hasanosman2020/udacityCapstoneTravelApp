@@ -33,8 +33,8 @@ async function performAction (e) {
 
     //function to call servers after post request
     await callServer('/getWeatherbit')
-    await callServer('/getPix')
-    await callServer('/getRest')
+    //await callServer('/getPix')
+    //await callServer('/getRest')
 
     const travelData = await callServer('/getData')
     console.log(travelData)

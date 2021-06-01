@@ -1,6 +1,8 @@
 require('dotenv').config()
 const fetch = require('node-fetch')
 
+const path = require('path')
+
 // Setup empty JS object to act as endpoint for all routes
 let projectData = {}
 
@@ -20,10 +22,11 @@ app.use(bodyParser.json())
 
 // Cors for cross origin allowance
 const cors = require('cors')
-const { response } = require('express')
 app.use(cors())
 
 // Initialize the main project folder
+const { url } = require('inspector')
+const { response } = require('express')
 app.use(express.static('dist'))
 
 // Setup Server
@@ -51,11 +54,11 @@ app.post('/clientData', async (req, res) => {
 
   /******Geonames API****** */
   const geoNamesUsername = process.env.geoNamesApiKey
-  const baseURL = 'http://api.geonames.org/searchJSON?q='
+  const geoNamesRoot = 'http://api.geonames.org/searchJSON?q='
   //console.log(`Your Geonames username is ${process.env.geoNamesApiKey}`)
   const cityName = document.getElementById('city').value
   const geoNamesUrl = await fetch(
-    `${baseURL}${cityName}&maxRows=10&username=${geoNamesUsername}`,
+    `${geoNamesRoot}${data.city}&maxRows=10&username=${geoNamesUsername}`,
     {
       method: 'POST'
       /*credentials: 'same-origin',
@@ -68,8 +71,8 @@ app.post('/clientData', async (req, res) => {
 
   try {
     const geoData = await geoNamesUrl.json()
-    projectData['long'] = geoData.geonames[0].lng
-    projectData['lat'] = geoData.geonames[0].lat
+    projectData['longitude'] = geoData.geonames[0].lng
+    projectData['latitude'] = geoData.geonames[0].lat
     projectData['name'] = geoData.geonames[0].name
     projectData['countryName'] = geoData.geonames[0].countryName
     projectData['cityName'] = geoData.geonames[0].cityName
@@ -88,3 +91,46 @@ app.get('/getData', (req, res) => {
   res.send(projectData)
   res.json({ message: 'Data received.' })
 })*/
+
+/*********WEATHERBIT API************/
+const weatherBitAPI = `&key=${process.env.weatherBitAPIKey}`
+const weatherBitRoot = 'https://api.weatherbit.io/v2.0/forecast/daily?'
+
+//Endpoint for the weatherbit API
+app.get('/getWeatherbit', async (req, res) => {
+  console.log(`Latitude is {projectData.lat}`)
+  console.log(`Longitude is {projectData.lon}`)
+
+  const lat = projectData.lat
+  const lon = projectData.lon
+  const weatherBitURL = `${weatherBitRoot}lat=${lat}&lon=${lon}{weatherBitAPI}`
+  console.log(`WeatherBitURL is {weatherBitURL}`)
+})
+try {
+  const response = await fetch(weatherBitURL)
+
+  //check for failed data transfer
+  if (!response.ok) {
+    console.log(
+      `Error connecting to Weatherbit API. Response status ${response.status}`
+    )
+    response.send(null)
+  }
+  const weatherBitData = await response.json()
+  projectData['icon'] = weatherBitData.data[0].weather.icon
+  projectData['description'] = weatherBitData.data[0].weather.description
+  projectData['temp'] = weatherBitData.data[0].temp
+  res.send(weatherBitData)
+  console.log(weatherBitData)
+  //if failed connection to API, return null
+} catch (error) {
+  console.log(`Error connecting to server: ${error}`)
+  res.send(null)
+}
+
+//GET endpoint gets the dta for the UI
+app.get('/getData', (req, res) => {
+  console.log(projectData)
+  res.send(projectData)
+  res.json({ message: 'The endpoint test passed.' })
+})
