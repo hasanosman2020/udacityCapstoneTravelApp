@@ -1,4 +1,4 @@
-//* Global Variables */
+/* Global Variables */
 
 /** Personal API key for OpenWeatherMap API */
 //const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
@@ -27,7 +27,7 @@ async function performAction (e) {
     const departDate = departureDate
 
     await postData('/clientData', {
-      city: city,
+      city: destinationCity,
       date: departDate
     })
 
@@ -41,7 +41,7 @@ async function performAction (e) {
 
     updateUI()
   } else {
-    alert('Plesase enter a valid date')
+    alert('Please enter a valid date')
   }
 }
 
@@ -52,7 +52,7 @@ async function postData (url, tripData) {
     mode: 'cors',
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json'
+      Content: 'application/json'
     },
     body: JSON.stringify(tripData)
   })
@@ -64,7 +64,7 @@ const callServer = async url => {
     method: 'GET',
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      Content: 'application/json'
     }
   }
 
