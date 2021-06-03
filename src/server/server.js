@@ -58,7 +58,7 @@ app.post('/clientData', async (req, res) => {
   //console.log(`Your Geonames username is ${process.env.geoNamesApiKey}`)
   const cityName = document.getElementById('city').value
   const geoNamesUrl = await fetch(
-    `${geoNamesRoot}${data.city}&maxRows=10&username=${geoNamesUsername}`,
+    `${geoNamesRoot}${data.city}&username=${geoNamesUsername}&maxRows=10`,
     {
       method: 'POST'
       /*credentials: 'same-origin',
@@ -103,30 +103,31 @@ app.get('/getWeatherbit', async (req, res) => {
 
   const lat = projectData.lat
   const lon = projectData.lon
-  const weatherBitURL = `${weatherBitRoot}lat=${lat}&lon=${lon}{weatherBitAPI}`
+  const weatherBitURL = `${weatherBitRoot}lat=${lat}&lon=${lon}${weatherBitAPI}`
   console.log(`WeatherBitURL is {weatherBitURL}`)
-})
-try {
-  const response = await fetch(weatherBitURL)
 
-  //check for failed data transfer
-  if (!response.ok) {
-    console.log(
-      `Error connecting to Weatherbit API. Response status ${response.status}`
-    )
-    response.send(null)
+  try {
+    const response = await fetch(weatherBitURL)
+
+    //check for failed data transfer
+    if (!response.ok) {
+      console.log(
+        `Error connecting to Weatherbit API. Response status ${response.status}`
+      )
+      response.send(null)
+    }
+    const weatherBitData = await response.json()
+    projectData['icon'] = weatherBitData.data[0].weather.icon
+    projectData['description'] = weatherBitData.data[0].weather.description
+    projectData['temp'] = weatherBitData.data[0].temp
+    res.send(weatherBitData)
+    console.log(weatherBitData)
+    //if failed connection to API, return null
+  } catch (error) {
+    console.log(`Error connecting to server: ${error}`)
+    res.send(null)
   }
-  const weatherBitData = await response.json()
-  projectData['icon'] = weatherBitData.data[0].weather.icon
-  projectData['description'] = weatherBitData.data[0].weather.description
-  projectData['temp'] = weatherBitData.data[0].temp
-  res.send(weatherBitData)
-  console.log(weatherBitData)
-  //if failed connection to API, return null
-} catch (error) {
-  console.log(`Error connecting to server: ${error}`)
-  res.send(null)
-}
+})
 
 //GET endpoint gets the dta for the UI
 app.get('/getData', (req, res) => {
@@ -134,3 +135,5 @@ app.get('/getData', (req, res) => {
   res.send(projectData)
   res.json({ message: 'The endpoint test passed.' })
 })
+
+module.exports = app

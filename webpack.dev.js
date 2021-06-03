@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const path = require('path')
 const webpack = require('webpack')
 
@@ -15,21 +16,21 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
-    writeToDisk: true,
-    hot: true
+    port: 9000
+    //writeToDisk: true,
+    //hot: true
   },
   module: {
     rules: [
       {
         test: '/.m?js$/',
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+        //use: {
+        loader: 'babel-loader'
+        //options: {
+        //presets: ['@babel/preset-env']
+        //}
+        //}
       },
       {
         test: /\.scss$/i,
@@ -41,11 +42,23 @@ module.exports = {
       },
       {
         test: /\.(png | jpe?g | gif)$/i,
-        use: [{ loader: 'file-loader' }]
+        exclude: ['/node_modules/', require.resolve('./src/client/index.js')],
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'imgs',
+            publicPath: 'imgs'
+          }
+        }
       },
+      //{
+      //test: /\.html$/i,
+      //loader: 'html-loader'
+      //},
       {
-        test: /\.html$/i,
-        loader: 'html-loader'
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   },
@@ -59,6 +72,7 @@ module.exports = {
       verbose: true,
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false
-    })
+    }),
+    new MiniCssExtractPlugin({ filename: '[name].css' })
   ]
 }
