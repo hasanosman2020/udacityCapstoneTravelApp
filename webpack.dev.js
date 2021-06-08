@@ -16,8 +16,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
     port: 9000,
-    writeToDisk: true,
-    hot: true
+    //writeToDisk: true,
+    //hot: true
   },
   module: {
     rules: [
