@@ -1,8 +1,11 @@
 //* Global Variables */
 
 /** Personal API key for OpenWeatherMap API */
-//const baseURL = 'http://api.openweathermap.org/data/2.5/weather?q='
+const geoNamesUsername = 'hasan79';
+const geoNamesRoot = 'http://api.geonames.org/searchJSON?q=';
 //const apiKey = '&appid=297d714c461b021c0e0eac76978ccbad&units=metric'
+//const weatherBitApiKey = process.env.weatherBitApiKey;
+
 
 import fetch from 'node-fetch'
 
@@ -17,72 +20,71 @@ async function performAction (e) {
   const destinationCity = document.getElementById('destination-city').value
   const departureDate = document.getElementById('date-departure').value
   const returnDate = document.getElementById('date-return').value
-  /* const feelings = document.getElementById('feelings').value*/
 
   // Create a new date instance dynamically with JS
   let d = new Date()
-  let currentDate = d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear()
+  let currentDate = d.getDate() + '.' + d.getMonth() + '.' + d.getFullYear();
 
   if (parseInt(departureDate) >= parseInt(currentDate)) {
-    const departDate = departureDate
-
-    await postData('/clientData', {
-      city: city,
-      date: departDate
-    })
-
-    //function to call servers after post request
-    await callServer('/getWeatherbit')
-    //await callServer('/getPix')
-    //await callServer('/getRest')
-
-    const travelData = await callServer('/getData')
-    console.log(travelData)
-
-    updateUI()
-  } else {
-    alert('Plesase enter a valid date')
+    const departDate = departureDate;
   }
+
+  getGeonamesCoords(geoNamesRoot, geoNamesUsername, city)
+  .then(function (geonamesCoords){
+    const lat = geonamesCoords.lat;
+    const lon = geonamesCoords.lon;
+    postData('http://localhost:3000/addGeonamesCoords', {
+      lat: geonamesCoords.lat,
+      lon: geonamesCoords.lon,
+      city: geonamesCoords.city
+    })
+    //console.log(geonamesCoords.city)
+    .then(() => {
+      updateUI();
+    })
+  })
 }
 
-//POST route for server
-async function postData (url, tripData) {
-  const response = await fetch(url, {
+/**************************************/
+//function to get Geonames API data
+const getGeonamesCoords = async(geoNamesRoot, geonamesCoords, geoNamesUsername) => {
+  const res = await fetch(`${geoNamesRoot}&city=${geonamesCoords.city}&maxRows=10&username=hasan79&style=SHORT`);
+
+  //call API
+  try {
+    const geonamesCoords = await res.json();
+    console.log(geonamesCoords);
+    return geonamesCoords;
+    //handle error
+  } catch (error) {
+    console.log('error', error);
+  }
+};
+
+//function to POST data
+const postData = async (url = ' ', projectData = {}) => {
+  const res = await fetch (url, {
     method: 'POST',
-    mode: 'cors',
     credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(tripData)
-  })
-}
+    body: JSON.stringify(projectData),
+  });
+};
 
-//call to server for data
-const callServer = async url => {
-  const asyncParams = {
-    method: 'GET',
-    mode: 'cors',
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-
-  const res = await fetch(url, asyncParams)
+//function to update UI
+export const updateUI = async () => {
+  const request = await fetch('http://localhost:3000/getData');
   try {
-    const data = await res.json()
-    return data
-  } catch {
-    console.log(`Error: ${res.statusText}`)
+    const geonamesCoords = await request.json();
+    document.getElementById('latitude').innerHTML = geonmesCoords['latitude'];
+    document.getElementById('longitude').innerHTML = geonmesCoords['longitude'];
+    document.getElementById('city').innerHTML = geonmesCoords['city'];
+  } catch (error) {
+    console.log('error', error);
   }
 }
 
-//function that updates the UI with a call to the server
-async function updateUI () {
-  const response = await fetch('/getData')
-  const userData = await response.json()
-  console.log(userData)
-  document.querySelector('.city').innerHTML = userData.city
-}
 
-export { callServer, updateUI }
+export { performAction }
