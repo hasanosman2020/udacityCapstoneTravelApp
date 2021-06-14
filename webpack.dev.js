@@ -41,7 +41,13 @@ module.exports = {
       },
       {
         test: /\.(png | jpe?g | gif)$/i,
-        use: [{ loader: 'file-loader' }]
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+            name: '[name].[ext]',
+putputPath: 'assets/icon'
+          } }]
       },
       {
         test: /\.html$/i,
