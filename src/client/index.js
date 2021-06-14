@@ -7,6 +7,6 @@ document.getElementById('depart_btn').addEventListener('click', performAction)
 
 //import { getGeonamesApiCoords } from './js/app'
 //export { getGeonamesApiCoords }
-export { performAction }
+//export { performAction }
 
 
