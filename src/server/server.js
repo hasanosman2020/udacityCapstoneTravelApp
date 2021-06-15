@@ -25,8 +25,8 @@ const cors = require('cors')
 app.use(cors())
 
 // Initialize the main project folder
-const { url } = require('inspector')
-const { response } = require('express')
+//const { url } = require('inspector')
+//const { response } = require('express')
 app.use(express.static('dist'))
 
 // Setup Server
@@ -42,18 +42,20 @@ function listening () {
 }
 
 //GET endpoint gets the data for the UI
-app.get('/getData', (req, res) => {
+app.get('/all', sendData)
+function sendData(req, res){
+  res.send(projectData);
+}
+
+/***POST route***/
+app.post('addGeonamesData', addData)
+function addData(req, res){
   console.log(projectData);
-  res.send(geonamesCoords);
-});
 
-  let geonamesCoords= [];
-
-  app.post('/addGeonamesCoords', (req, res) => {
-    geonamesCoords = {
-      city: req.body.name,
-      lat: req.body.lat,
-      lon: req.body.lon
-    };
-    console.log(geonamesCoords)
-  })
+  projectData = {
+    city: req.body.city,
+    longitude: req.body.lon,
+    latitude: req.body.lat
+  }
+  res.send(projectData)
+}
