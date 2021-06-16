@@ -43,14 +43,14 @@ function listening () {
 
 //GET endpoint gets the data for the UI
 app.get('/all', sendData)
-function sendData(req, res){
-  res.send(projectData);
+function sendData (req, res) {
+  res.send(projectData)
 }
 
 /***POST route***/
 app.post('addGeonamesData', addData)
-function addData(req, res){
-  console.log(projectData);
+function addData (req, res) {
+  console.log(projectData)
 
   projectData = {
     city: req.body.city,
