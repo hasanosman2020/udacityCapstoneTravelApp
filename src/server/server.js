@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 const path = require('path')
 
 // Setup empty JS object to act as endpoint for all routes
-let projectData = {}
+const travelData = {}
 
 // Require Express to run server and routes
 const express = require('express')
@@ -44,18 +44,40 @@ function listening () {
 //GET endpoint gets the data for the UI
 app.get('/all', sendData)
 function sendData (req, res) {
-  res.send(projectData)
+  res.send(travelData)
 }
 
 /***POST route***/
-app.post('addGeonamesData', addData)
-function addData (req, res) {
-  console.log(projectData)
 
-  projectData = {
+app.post('/', addData)
+
+function addData (req, res) {
+  newEntry = {
+    data: req.body.data,
+    destination: req.body.destination,
+    departDate: req.body.depart_date
+  }
+
+  travelData.data = req.body.data
+  travelData.destination = req.body.destination
+  travelData.departureDate = req.body.departDate
+
+  res.send(newEntry)
+}
+app.get('/data', function (req, res) {
+  res.send(travelData)
+})
+
+app.post('/', addData)
+function addData (req, res) {
+  console.log(travelData)
+
+  travelData = {
     city: req.body.city,
     longitude: req.body.lon,
     latitude: req.body.lat
   }
-  res.send(projectData)
+  res.send(travelData)
 }
+
+//module.exports = app

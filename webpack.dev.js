@@ -1,7 +1,10 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
+const TerserJSPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   entry: './src/client/index.js',
@@ -12,10 +15,13 @@ module.exports = {
     libraryTarget: 'var',
     library: 'Client'
   },
+  optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCssAssetsPlugin({})]
+  },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: 9000
     //writeToDisk: true,
     //hot: true
   },
@@ -33,7 +39,7 @@ module.exports = {
       },
       {
         test: /\.scss$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
       {
         test: /\.css$/i,
@@ -43,11 +49,13 @@ module.exports = {
         test: /\.(png | jpe?g | gif)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'url-loader',
             options: {
-            name: '[name].[ext]',
-putputPath: 'assets/icon'
-          } }]
+              name: '[name].[ext]',
+              putputPath: 'assets/icon'
+            }
+          }
+        ]
       },
       {
         test: /\.html$/i,
@@ -65,6 +73,9 @@ putputPath: 'assets/icon'
       verbose: true,
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: false
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css'
     })
   ]
 }

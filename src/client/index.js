@@ -1,12 +1,21 @@
 import './styles/style.scss'
+
 import { performAction } from './js/app'
 
-import '../client/styles/style.scss'
+export { performAction }
 
-document.getElementById('depart_btn').addEventListener('click', performAction)
+import { updateUI } from './js/app'
 
-//import { getGeonamesApiCoords } from './js/app'
-//export { getGeonamesApiCoords }
-//export { performAction }
+export { updateUI }
 
+import { getWeatherbitData } from './js/app'
 
+import { postData } from './js/app'
+
+export { getWeatherbitData, postData }
+
+//loading weather icons
+function importAll (r) {
+  return r.keys().map(r)
+}
+importAll(require.context('./media/icons', false, /\.(png)$/))

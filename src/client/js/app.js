@@ -11,12 +11,13 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 
 //Pixabay API
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
-const pixabayApiKey = '22008827 - e069452971dbec7aa6f1cef1a'
+const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
 document.getElementById('depart_btn').addEventListener('click', performAction)
 
 export async function performAction (e) {
+  e.preventDefault()
   const destination_city = document.getElementById('destination_city').value
   const date_depart = document.getElementById('date_depart').valueAsDate
   const date_return = document.getElementById('date_return').valueAsDate
@@ -25,7 +26,30 @@ export async function performAction (e) {
     `city: ${destination_city}, depart:${date_depart}, return:${date_return}`
   )
 
-  getGeonamesData(destination_city).then(function (data) {
+  const geonamesData = await getGeonamesData(destination_city)
+  const weatherbitData = await getWeatherbitData(
+    weatherbitBaseUrl,
+    geonamesData.geonames[0].lat,
+    geonamesData.geonames[0].lng,
+    weatherbitApiKey
+  )
+  const pixabayData = await getPixabayData(
+    pixabayBaseUrl,
+    pixabayApiKey,
+    destination_city
+  )
+  await postData('http://localhost:3000/addWeather', {
+    weatherbitData: weatherbitData,
+    city: destination_city,
+    departure: date_depart,
+    picture: pixabayData
+  })
+
+  updateUI(pixabayData.hits[0].webFormatURL)
+}
+/*
+getGeonamesData(destination_city)
+  .then(function (data) {
     return getWeatherbitData(
       weatherbitBaseUrl,
       data.geonames[0].lat,
@@ -33,20 +57,32 @@ export async function performAction (e) {
       weatherbitApiKey
     )
   })
-}
-
-/*postData('http://localhost:3000/addGeonamesData', {
-      city: destination_city,
-      depart: date_depart,
-      return: date_return,
-      latitude: data.geonames[0].lat,
-      longitude: data.geonames[0].lng
-    }).then(function () {
-      updateUI()
+  .then(function (data) {
+    return postData('/', {
+      data: data.data,
+      destination: destination_city,
+      departure: date_depart
     })
   })
-}
-*/
+  .then(function (data) {
+    return getPixabay(pixabayBaseUrl, pixabayApiKey, destination_city)
+  })
+//.then(function (data) {
+//updateUI(data.hits[0].webformatURL)
+//})
+
+/*postData('http://localhost:3000/addGeonamesData', {
+        city: destination_city,
+        depart: date_depart,
+        return: date_return,
+        latitude: data.geonames[0].lat,
+        longitude: data.geonames[0].lng
+      }).then(function () {
+        updateUI()
+      })
+    })
+  }
+  */
 //Async function makes GET request to the Geonames API to obtain Geonames data (1.e. co-ordinates) using fetch() method
 const getGeonamesData = async destination_city => {
   const res = await fetch(
@@ -81,7 +117,11 @@ const getWeatherbitData = async (
 }
 
 //Async function makes GET request to the Pixabay  API to obtain images using fetch() method
-const getPixabay = async (pixabayBaseUrl, pixabayApiKey, destination_city) => {
+const getPixabayData = async (
+  pixabayBaseUrl,
+  pixabayApiKey,
+  destination_city
+) => {
   const res = await fetch(
     `${pixabayBaseUrl}${pixabayApiKey}&q=${destination_city}&image_type=photo`
   )
@@ -95,15 +135,17 @@ const getPixabay = async (pixabayBaseUrl, pixabayApiKey, destination_city) => {
   }
 }
 
-const postData = async () => {
-  '/addGeonamesData',
-    (data = { longitude: data.geonames[0].lon, latitude: data.geonames[0].lat })
-}
+//postData = async () => {
+//'/addGeonamesData',
+//(data = { longitude: data.geonames[0].lon, latitude: data.geonames[0].lat })
 
-const postRequest = async () => {
-  const req = await fetch(url, {
+//Async function makes a POST request to add the API data to the app using fetch() method
+
+export const postData = async (url = ' ', data = {}) => {
+  console.log('Data is ' + data)
+  const res = await fetch(url, {
     method: 'POST',
-    credentials: same - origin,
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
@@ -111,22 +153,53 @@ const postRequest = async () => {
   })
 
   try {
-    const allData = await postRequest.json()
-    console.log(allData)
-    return allData
+    const newWeatherData = await res.json()
+    console.log(newWeatherData)
+    return newWeatherData
   } catch (error) {
     console.log('error', error)
   }
+}
 
-  const updateUI = async () => {
-    const req = await fetch('http://localhost:3000/all')
-    try {
-      const allData = await req.json()
-      document.getElementById(
-        'destination_city'
-      ).innerHTML = `Destination: ${allData[0].city}`
-    } catch (error) {
-      console.log('error', error)
+//Function to update UI
+const updateUI = async webFormatURL => {
+  const req = await fetch('http://localhost:3000/getData')
+  try {
+    const allData = await req.json()
+    document.getElementById('image_destination').src = webformatURL
+    document.getElementById('image_city').alt = allData.destination_city
+    document.getElementById('destination_city').innerHTML =
+      'You are travelling to ' + allData.destination_city
+    document.getElementById('days').innerHTML =
+      'You have ' +
+      allData.days +
+      ' days to go before your trip to ' +
+      allData.destination_city
+    if (allData.days <= 7) {
+      document.getElementById('currentWeather').innerHTML =
+        'Current weather is: ' + allData.weatherbitData.data[0].temp + '°C'
+
+      const icon = document.createElement('img')
+      icon.setAttribute('id', 'icon')
+      icon.src =
+        'https://www.weatherbit.io/static/img/icons/' +
+        allData.weatherbitData.data[0].weather.icon +
+        '.png'
+      icon.alt = 'weather icon'
+
+      document.getElementById('currentWeather').appendChild(icon)
+    } else {
+      document.getElementById('weatherForecast').innerHTML =
+        '10-day weather forecast: '
+      for (var i = 0; i < 10; i++) {
+        const weatherForecast = document.getElementById('weatherForecast')
+
+        const date = document.createElement('div')
+        date.setAttribute('id', 'day')
+        date.textContent = allData.weatherData.data[i].datetime
+      }
     }
+  } catch (error) {
+    console.log('error', error)
   }
 }
