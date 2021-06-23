@@ -27,7 +27,7 @@ app.use(cors())
 // Initialize the main project folder
 //const { url } = require('inspector')
 //const { response } = require('express')
-app.use(express.static('dist'))
+app.use(express.static(__dirname + '/public'))
 
 // Setup Server
 const port = 3000
@@ -80,4 +80,4 @@ function addData (req, res) {
   res.send(travelData)
 }
 
-//module.exports = app
+module.exports = app
