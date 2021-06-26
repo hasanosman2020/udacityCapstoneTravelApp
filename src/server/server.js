@@ -1,5 +1,5 @@
-require('dotenv').config()
-const fetch = require('node-fetch')
+//require('dotenv').config()
+//const fetch = require('node-fetch')
 
 const path = require('path')
 
@@ -24,10 +24,12 @@ app.use(bodyParser.json())
 const cors = require('cors')
 app.use(cors())
 
+const fetch = require('node-fetch')
+
 // Initialize the main project folder
 //const { url } = require('inspector')
 //const { response } = require('express')
-app.use(express.static(__dirname + '/public'))
+app.use(express.static('dist'))
 
 // Setup Server
 const port = 3000
@@ -41,12 +43,6 @@ function listening () {
   console.log(`The server is running on localhost: ${port}.`)
 }
 
-//GET endpoint gets the data for the UI
-app.get('/all', sendData)
-function sendData (req, res) {
-  res.send(travelData)
-}
-
 /***POST route***/
 
 app.post('/', addData)
@@ -54,8 +50,8 @@ app.post('/', addData)
 function addData (req, res) {
   newEntry = {
     data: req.body.data,
-    destination: req.body.destination,
-    departDate: req.body.depart_date
+    destination: req.body.destination_city,
+    departDate: req.body.date_depart
   }
 
   travelData.data = req.body.data
@@ -64,20 +60,10 @@ function addData (req, res) {
 
   res.send(newEntry)
 }
+
+//GET endpoint gets the data for the UI
 app.get('/data', function (req, res) {
   res.send(travelData)
 })
-
-app.post('/', addData)
-function addData (req, res) {
-  console.log(travelData)
-
-  travelData = {
-    city: req.body.city,
-    longitude: req.body.lon,
-    latitude: req.body.lat
-  }
-  res.send(travelData)
-}
 
 module.exports = app
