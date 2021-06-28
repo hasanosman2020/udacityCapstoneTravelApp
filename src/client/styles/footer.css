@@ -1,0 +1,13 @@
+footer {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  padding: 0.5em 1em;
+  color: #707070;
+  border-top: 3px solid #f0b020;
+  background-color: #b8b8b8;
+  /*var(--bgcolourhf)*/
+  font-size: 0.7rem;
+  font-family: "Bebas Neue", sans-serif;
+}
+/*# sourceMappingURL=footer.css.map */

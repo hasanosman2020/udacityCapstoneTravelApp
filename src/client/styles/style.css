@@ -1,6 +1,19 @@
 /*  Basic Styling To Override Default For Basic HTML Elements */
 /* Reset style for HTML element on active to have no border*/
 /* Style for Placeholder Text*/
+footer {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  padding: 0.5em 1em;
+  color: #707070;
+  border-top: 3px solid #f0b020;
+  background-color: #b8b8b8;
+  /*var(--bgcolourhf)*/
+  font-size: 0.7rem;
+  font-family: "Bebas Neue", sans-serif;
+}
+
 body {
   background: #fffff8;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -9,9 +22,9 @@ body {
 #app {
   display: -ms-grid;
   display: grid;
-  grid-auto-rows: minmax(150px, auto);
+  grid-auto-rows: minmax(100px, 1fr, 100px);
   height: 100vh;
-  background: #f23557;
+  background: #fffff8;
   color: #f0d43a;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -30,6 +43,7 @@ label {
   font-size: 27px;
 }
 
+/*
 input {
   display: block;
   height: 60px;
@@ -39,10 +53,18 @@ input {
   font-size: 20px;
   font-family: "Oswald", sans-serif;
   border: none;
-}
-
-input:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }}
+  */
+input {
+  display: block;
+  border: none;
+  margin-left: 10px;
+  margin-top: 3px;
+  font-size: 18px;
+  color: black;
+  background: #e6e6ff;
 }
 
 button {
