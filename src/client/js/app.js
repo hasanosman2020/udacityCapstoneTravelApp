@@ -7,7 +7,9 @@ const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
 const geonamesApiKey = 'hasan79'
 
 //Weatherbit API
-const weatherbitBaseUrl = 'http://api.weatherbit.io/v2.0/current?'
+const weatherbitBaseUrl = ' '
+const weatherbitCurrent = 'http://api.weatherbit.io/v2.0/current?'
+const weatherbitForecast = 'http://api.weatherbit.io/v2.0/forecast/daily?'
 const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 
 //Pixabay API
@@ -22,32 +24,14 @@ export async function performAction (e) {
   const destination_city = document.getElementById('destination_city').value
   const date_depart = document.getElementById('date_depart').value
   const date_return = document.getElementById('date_return').value
-  /*
-    const geonamesData = await getGeonamesData(destination_city)
-  
-    const weatherbitData = await getWeatherbitData(
-      weatherbitBaseUrl,
-      geonamesData.geonames[0].lat,
-      geonamesData.geonames[0].lon
-    )
-  
-    const pixabayData = await getPixabayData(
-      pixabayBaseUrl,
-      pixabayApiKey,
-      destination_city
-    )
-  
-    await postData('http://localhost:3000/addWeatherbitData', {
-      weatherbitData: weatherbitData,
-      destination_city: destination_city,
-      date_depart: date_depart,
-      date_return: date_return,
-      picture: pixabayData
-    })
-  
-    updateUI(pixabayData.hits[0].webformatURL)
+  const countdown = getCountdown(date_depart)
+  const travelDuration = getTravelDuration(date_depart, date_return)
+  if (countdown <= 7) {
+    weatherbitBaseUrl = weatherbitCurrent
+  } else {
+    weatherbitBaseUrl = weatherbitForecast
   }
-  */
+
   getGeonamesData(destination_city)
     .then(function (data) {
       return getWeatherbitData(
@@ -72,26 +56,16 @@ export async function performAction (e) {
       updateUI(data.hits[0].webformatURL)
     })
 }
-/*
-getGeonamesData(destination_city).then(function (data) {
-  return getWeatherbitData(
-    weatherbitBaseUrl,
-    data.geonames[0].lat,
-    data.geonames[0].lng,
-    weatherbitApiKey
-  )
-})
 
-postData('http://localhost:3000/addGeonamesData', {
-  city: destination_city,
-  depart: date_depart,
-  return: date_return,
-  latitude: data.geonames[0].lat,
-  longitude: data.geonames[0].lng
-}).then(function () {
-  updateUI()
-})
-*/
+//Function that generates the countdown to date of departure
+function getCountdown (date_depart) {
+  const now = new Date()
+  const nowSeconds = Date.parse(now)
+  const dateDepartSeconds = Date.parse(date_depart)
+  const difference = Math.abs(dateDepartSeconds - nowSeconds)
+  const days = Math.ceil(diff / (1000 * 60 * 60 * 240))
+  return days
+}
 
 //Async function makes GET request to the Geonames API to obtain Geonames data (i.e. co-ordinates) using fetch() method
 const getGeonamesData = async destination_city => {
@@ -169,8 +143,18 @@ const updateUI = async imageURL => {
     const allData = await req.json()
     document.getElementById('destination_image').src = imageURL
     document.getElementById('destination_image').alt = allData.destination_city
-    document.getElementById('destination_city').innerHTML =
-      'Your trip is to ' + allData.destination_city
+    document.getElementById('destination').innerHTML =
+      'Your trip to ' +
+      allData.destination_city +
+      'is ' +
+      allData.countdown +
+      ' days away!'
+
+    //if trip is less than 4 days away, display the current weather
+    if (allData.countdown <= 4) {
+      document.getElementById('weather').innerHTML =
+        'Current weather: ' + allData.data[0].temp + ' °C '
+    }
   } catch (error) {
     console.log('error', error)
   }
