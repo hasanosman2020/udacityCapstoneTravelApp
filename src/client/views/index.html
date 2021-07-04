@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Travel Planner - Udacity Capstone</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap"
-      rel="stylesheet"
-    />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel App</title>
   </head>
   <body>
-    <div id="app">
+    <header>
+      <h1 class="logo">Hasan Osman</h1>
+      <!--h2 class="sub_logo">Software Engineer</!--h2-->
+    </header>
+    <main id="app">
       <div class="holder headline">Travel Planner</div>
       <div class="holder destination">
         <label for="destination_city">Destination:</label>
@@ -35,25 +37,64 @@
           placeholder="insert your date of arrival"
         />
       </div>
-
       <button id="depart_btn" type="submit">Let's Go!</button>
-      <textarea
-        class="myInput"
-        id="content"
-        placeholder="Enter any notes for your trip"
-        rows="10"
-        cols="50"
-      ></textarea>
-      <button id="generate" type="submit">Save</button>
-    </div>
-    <div id="entryHolder">
-      <div id="destination"></div>
-      <div id="weather"></div>
-      <div id="forecast"></div>
-      <img alt="insert destination image" id="destination_image" />
-    </div>
-    <div class="holder entry">
-      <!--div class="last_trip">Most Recent Trip</div-->
-    </div>
+
+      <div id="entryHolder">
+        <div id="destination"></div>
+        <div id="timeRemaining"></div>
+        <div id="location"></div>
+        <div id="duration"></div>
+        <div id="weather"></div>
+        <div id="forecast"></div>
+        <img id="picture" />
+      </div>
+      <div class="holder entry">
+        <!--div class="last_trip">Most Recent Trip</div-->
+      </div>
+
+      <form id="city-form" class="pure-form" style="margin: 30px 0 40px">
+        <input
+          id="weatherbit-city-forecast"
+          autofocus=""
+          name="geo-lookup"
+          placeholder="City,ST or lat,lon"
+          style="width: 100%; max-width: 600px; outline: 0"
+          autocomplete="off"
+          type="text"
+        />
+        <input id="weatherbit-get-data" type="button" value="Get Forecast" />
+        <input id="weatherbit-show-metric" type="checkbox" value="false" />
+        <label for="weatherbit-show-metric">Use Metric Units</label>
+      </form>
+
+      <div id="weatherbit-city-name-forecast"></div>
+      <div id="forecast-1"></div>
+      <div id="forecast-2"></div>
+      <div id="forecast-3"></div>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+      <script type="text/javascript">
+        window.weatherbitWidgetParams = {
+          key: "334b39cd7f05408190e076877f6411f9",
+          autocomplete_container: "city-form",
+          forecast_1: "forecast-1",
+          forecast_2: "forecast-2",
+          forecast_3: "forecast-3",
+          cities_file: "cities-tropical",
+        };
+        (function () {
+          var script = document.createElement("script");
+          script.type = "text/javascript";
+          script.async = true;
+          script.src =
+            "https://www.weatherbit.io/static/widgets/forecast-series-widget.min.js";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(script, s);
+        })();
+      </script>
+    </main>
+    <footer>
+      Copyright&copy 2020 <strong>Hasan Osman</strong>. All Rights Reserved.
+    </footer>
   </body>
 </html>

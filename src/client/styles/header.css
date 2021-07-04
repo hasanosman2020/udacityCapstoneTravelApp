@@ -1,1 +1,22 @@
-/* No CSS *//*# sourceMappingURL=header.css.map */
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  position: fixed;
+  background-color: #b8b8b8;
+  border-bottom: 3px solid #f0b020;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+}
+
+h1 {
+  font-size: 0.8rem;
+  font-family: "Bebas Neue", sans-serif;
+  color: #707070;
+  margin-bottom: 0;
+}
+/*# sourceMappingURL=header.css.map */

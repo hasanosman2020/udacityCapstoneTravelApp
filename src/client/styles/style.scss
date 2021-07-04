@@ -5,20 +5,47 @@
 @import "./footer.scss";
 
 body {
+  margin: 0;
   background: #fffff8;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 #app {
   display: grid;
-  grid-auto-rows: minmax(100px, 1fr, 100px);
+  // grid-auto-rows: minmax(100px, 1fr, 100px);
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
   height: 100vh;
   background: #fffff8;
-  color: #f0d43a;
-  justify-content: center;
-  grid-gap: 1em;
+  color: #282624;
+  //justify-content: center;
+  //grid-gap: 1em;
   font-size: 20px;
   font-family: "Oswald", sans-serif;
 }
+
+#app > header {
+  display: flex;
+  grid-area: header;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr minmax(0, 600px) 1fr;
+  grid-area: main;
+  overflow: auto;
+  padding: 50px 10px;
+  //padding: 15px 5px 10px 5px;
+}
+
+#app > footer {
+  grid-area: footer;
+}
+
 .entry {
   background: rgba(59, 74, 107, 0.4);
 }
@@ -47,23 +74,40 @@ input {
   margin-top: 3px;
   font-size: 18px;
   color: black;
-  background: #e6e6ff;
+  background: #b8b8b8;
 }
 
 button {
-  width: 400px;
-  height: 100px;
-  background: #3b4a6b;
-  color: #f0d43a;
-  font-size: 26px;
+  display: inline-block;
+  width: 10%;
+  border: 0;
+  border-radius: 0.25rem;
+  background: #b8b8b8;
+  color: black;
   font-family: "Oswald", sans-serif;
-  border: none;
-  box-shadow: 2px 4px 5px #444;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-decoration: none;
+  padding: 0.25rem 0.5rem;
+  margin: 0.25rem;
   cursor: pointer;
+  box-shadow: 2px 4px 5px;
+
+  &:hover {
+    outline: 2px solid #f0b020;
+  }
+
   &:focus {
-    outline: none;
+    outline: 2px solid #f0b020;
+  }
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
   }
 }
+
 h1 {
   font-size: 36px;
 }
