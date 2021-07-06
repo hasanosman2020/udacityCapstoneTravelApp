@@ -51,12 +51,14 @@ function addData (req, res) {
   newEntry = {
     data: req.body.data,
     destination: req.body.destination_city,
-    departDate: req.body.date_depart
+    dateDepart: req.body.dateDepart,
+    daysTillDepart: req.body.daysTillDepart
   }
 
   travelData.data = req.body.data
   travelData.destination = req.body.destination
-  travelData.departureDate = req.body.departDate
+  travelData.dateDepart = req.body.dateDepart
+  travelData.daysTillDepart = req.body.daysTillDepart
 
   res.send(newEntry)
 }
