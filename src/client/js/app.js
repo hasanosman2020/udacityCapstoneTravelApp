@@ -140,17 +140,17 @@ export const postData = async (url = ' ', data = {}) => {
 const updateUI = async imageURL => {
   const req = await fetch('http://localhost:3000/data')
   try {
-    const allData = await req.json()
+    const travelData = await req.json()
     document.getElementById('picture').src = imageURL
-    document.getElementById('picture').alt = allData.destination
+    document.getElementById('picture').alt = travelData.destination
     document.getElementById(
       'location'
-    ).innerHTML = `Your trip to ${allData.destination} is ${allData.daysTillDepart} days away!`
+    ).innerHTML = `Your trip to ${travelData.destination} is ${travelData.daysTillDepart} days away!`
 
     //if trip is less than 4 days away, display the current weather
-    if (allData.daysTillDepart <= 4) {
+    if (travelData.daysTillDepart <= 4) {
       document.getElementById('weather').innerHTML =
-        'Current weather: ' + allData.data[0].temp + ' °C '
+        'Current weather: ' + weatherData.data[0].temp + ' °C '
     }
   } catch (error) {
     console.log('error', error)
