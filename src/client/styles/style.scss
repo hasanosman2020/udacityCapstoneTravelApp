@@ -9,6 +9,36 @@ body {
   background: #fffff8;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
+header {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  //padding: 0.5em 1em;
+  background-color: #b8b8b8;
+  border-bottom: 3px solid #f0b020;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+
+h1 {
+  font-size: 0.8rem;
+  font-family: "Bebas Neue", sans-serif;
+  color: #707070;
+  margin-bottom: 0;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  position: fixed;
+  padding: 0.5em 1em;
+  color: #707070;
+  border-top: 3px solid #f0b020;
+  background-color: #b8b8b8; /*var(--bgcolourhf)*/
+  font-size: 0.7rem;
+  font-family: "Bebas Neue", sans-serif;
+}
+
 #app {
   display: grid;
   // grid-auto-rows: minmax(100px, 1fr, 100px);
@@ -33,9 +63,11 @@ body {
 }
 
 main {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr minmax(0, 600px) 1fr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /*grid-template-rows: 1fr;
+  grid-template-columns: 1fr minmax(0, 600px) 1fr;*/
   grid-area: main;
   overflow: auto;
   padding: 50px 10px;
@@ -77,36 +109,71 @@ input {
   background: #b8b8b8;
 }
 
+/* Buttons styles start */
 button {
   display: inline-block;
   width: 10%;
-  border: 0;
+  border: 2px solid #f0b020;
   border-radius: 0.25rem;
   background: #b8b8b8;
   color: black;
   font-family: "Oswald", sans-serif;
   font-size: 1rem;
-  font-weight: bold;
   line-height: 1.2;
   white-space: nowrap;
   text-decoration: none;
   padding: 0.25rem 0.5rem;
   margin: 0.25rem;
   cursor: pointer;
+  text-align: center;
   box-shadow: 2px 4px 5px;
 
-  &:hover {
+  &:hover,
+  &:focus {
     outline: 2px solid #f0b020;
   }
 
   &:focus {
-    outline: 2px solid #f0b020;
+    outline-offset: -4px;
   }
-  &:disabled {
-    opacity: 0.5;
-    pointer-events: none;
+
+  &:active {
+    transform: scale(0.99);
   }
 }
+/*
+button {
+  display: inline-block;
+  border: 2px solid #f0b020;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: #b8b8b8;
+  color: black;
+  font-family: sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:hover,
+  &:focus {
+    background: #f0b020;
+  }
+
+  &:focus {
+    outline: 1px solid #f0b020;
+    outline-offset: -4px;
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+/* Button styles end */
 
 h1 {
   font-size: 36px;

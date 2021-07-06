@@ -9,7 +9,7 @@
   <body>
     <header>
       <h1 class="logo">Hasan Osman</h1>
-      <!--h2 class="sub_logo">Software Engineer</!--h2-->
+      <!--<h2-- class="sub_logo">Software Engineer</h2-->
     </header>
     <main id="app">
       <div class="holder headline">Travel Planner</div>
@@ -22,10 +22,10 @@
         />
       </div>
       <div class="holder departure">
-        <label for="date_depart">Date of Departure:</label>
+        <label for="dateDepart">Date of Departure:</label>
         <input
           type="date"
-          id="date_depart"
+          id="dateDepart"
           placeholder="insert your departure date"
         />
       </div>
@@ -37,22 +37,18 @@
           placeholder="insert your date of arrival"
         />
       </div>
-      <button id="depart_btn" type="submit">Let's Go!</button>
-
-      <div id="entryHolder">
-        <div id="destination"></div>
-        <div id="timeRemaining"></div>
-        <div id="location"></div>
-        <div id="duration"></div>
-        <div id="weather"></div>
-        <div id="forecast"></div>
-        <img id="picture" />
-      </div>
-      <div class="holder entry">
-        <!--div class="last_trip">Most Recent Trip</div-->
+      <div class="holder submit">
+        <button id="depart_btn" type="submit">Let's Go!</button>
       </div>
 
-      <form id="city-form" class="pure-form" style="margin: 30px 0 40px">
+      <img id="picture" />
+      <div id="destination"></div>
+      <div id="daysTillDepart"></div>
+      <div id="location"></div>
+      <div id="duration"></div>
+      <div id="weather"></div>
+      
+      <form" class="pure-form" style="margin: 30px 0 40px">
         <input
           id="weatherbit-city-forecast"
           autofocus=""
@@ -92,8 +88,9 @@
           s.parentNode.insertBefore(script, s);
         })();
       </script>
+
     </main>
-    <footer>
+    <footer id="footer">
       Copyright&copy 2020 <strong>Hasan Osman</strong>. All Rights Reserved.
     </footer>
   </body>
