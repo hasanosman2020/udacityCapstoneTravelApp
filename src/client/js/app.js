@@ -178,6 +178,27 @@ const updateUI = async imageURL => {
     } else {
       document.getElementById('weatherForecast').innerHTML =
         '16 Day Weather Forecast'
+      for (let i = 0; i < 16; i++) {
+        const weatherForecast = document.getElementById('weatherForecast')
+
+        const date = document.createElement('div')
+        date.textContent = travelData.data[i].datetime
+        const highTemp = document.createElement('div')
+        highTemp.textContent = `Max temp: ${travelData.data[i].high_temp}`
+        const lowTemp = document.createElement('div')
+        lowTemp.textContent = `Min temp: ${travelData.data[i].low_temp}`
+        const icon = document.createElement('img')
+        icon.src =
+          'https://www.weatherbit.io/static/img/icons/' +
+          travelData.data[i].weather.icon +
+          '.png'
+        icon.alt = 'wether icon'
+
+        weatherForecast.appendChild(date)
+        weatherForecast.appendChild(highTemp)
+        weatherForecast.appendChild(lowTemp)
+        weatherForecast.appendChild(icon)
+      }
     }
   } catch (error) {
     console.log('error', error)
