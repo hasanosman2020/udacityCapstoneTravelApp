@@ -22,10 +22,11 @@ document.getElementById('depart_btn').addEventListener('click', performAction)
 export async function performAction (e) {
   e.preventDefault()
   const destination_city = document.getElementById('destination_city').value
-  const dateDepart = document.getElementById('dateDepart').value
-  const date_return = document.getElementById('date_return').value
+  const dateDepart = document.getElementById('dateDepart').valueAsDate
+  const date_return = document.getElementById('date_return').valueAsDate
   const daysTillDepart = getDaysTillDepart(dateDepart)
-  /*const travelDuration = getTravelDuration(date_depart, date_return)*/
+  const tripDuration = getTripDuration(dateDepart, date_return)
+  /*const travelDuration = getTravelDtion(date_depart, date_return)*/
   if (daysTillDepart <= 7) {
     weatherbitBaseUrl = weatherbitCurrent
   } else {
@@ -46,7 +47,9 @@ export async function performAction (e) {
         data: data.data,
         destination: destination_city,
         departure: dateDepart,
-        return: date_return
+        return: date_return,
+        tripDuration: tripDuration,
+        daysTillDepart: daysTillDepart
       })
     })
     .then(function (data) {
@@ -63,8 +66,19 @@ function getDaysTillDepart (dateDepart) {
   const nowSeconds = Date.parse(now)
   const dateDepartSeconds = Date.parse(dateDepart)
   const difference = Math.abs(dateDepartSeconds - nowSeconds)
-  const days = Math.ceil(difference / (1000 * 60 * 60 * 240))
-  return days
+  const daysTillDepart = Math.ceil(difference / (1000 * 60 * 60 * 24))
+  console.log(daysTillDepart)
+  return daysTillDepart
+}
+
+//Function that generates the trip duration
+function getTripDuration (dateDepart, date_return) {
+  const tripLengthDepart = Date.parse(dateDepart)
+  const tripLengthReturn = Date.parse(date_return)
+  const diff = Math.abs(tripLengthDepart - tripLengthReturn)
+  const tripDuration = Math.ceil(diff / (1000 * 60 * 60 * 24))
+  console.log(tripDuration)
+  return tripDuration
 }
 
 //Async function makes GET request to the Geonames API to obtain Geonames data (i.e. co-ordinates) using fetch() method
@@ -146,11 +160,24 @@ const updateUI = async imageURL => {
     document.getElementById(
       'location'
     ).innerHTML = `Your trip to ${travelData.destination} is ${travelData.daysTillDepart} days away!`
+    document.getElementById(
+      'tripDuration'
+    ).innerHTML = `You trip is ${travelData.tripDuration} days long!`
 
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 4) {
-      document.getElementById('weather').innerHTML =
-        'Current weather: ' + weatherData.data[0].temp + ' °C '
+      document.getElementById('weatherCurrent').innerHTML =
+        'Current weather: ' + travelData.data[0].temp + ' °C '
+      const weatherIcon = document.createElement('img')
+      weatherIcon.id = 'icon'
+      weatherIcon.src =
+        'https://www.weatherbit.io/static/img/icons' +
+        travelData.data[0].weather.icon +
+        '.png'
+      document.getElementById('weatherCurrent').appendChild(weatherIcon)
+    } else {
+      document.getElementById('weatherForecast').innerHTML =
+        '16 Day Weather Forecast'
     }
   } catch (error) {
     console.log('error', error)

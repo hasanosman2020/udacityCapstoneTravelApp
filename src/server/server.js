@@ -48,19 +48,21 @@ function listening () {
 app.post('/', addData)
 
 function addData (req, res) {
-  newEntry = {
+  newData = {
     data: req.body.data,
     destination: req.body.destination_city,
     dateDepart: req.body.dateDepart,
-    daysTillDepart: req.body.daysTillDepart
+    daysTillDepart: req.body.daysTillDepart,
+    tripDuration: req.body.tripDuration
   }
 
   travelData.data = req.body.data
   travelData.destination = req.body.destination
   travelData.dateDepart = req.body.dateDepart
   travelData.daysTillDepart = req.body.daysTillDepart
+  travelData.tripDuration = req.body.tripDuration
 
-  res.send(newEntry)
+  res.send(newData)
 }
 
 //GET endpoint gets the data for the UI
