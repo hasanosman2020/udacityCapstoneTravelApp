@@ -156,13 +156,22 @@ const updateUI = async imageURL => {
   try {
     const travelData = await req.json()
     document.getElementById('picture').src = imageURL
-    document.getElementById('picture').alt = travelData.destination
+    /*document.getElementById('picture').alt = travelData.destination*/
     document.getElementById(
       'location'
-    ).innerHTML = `Your trip to ${travelData.destination} is ${travelData.daysTillDepart} days away!`
+    ).innerHTML = `Destination: ${travelData.destination}`
+    document.getElementById(
+      'outbound'
+    ).innerHTML = `Trip Start: ${travelData.dateDepart} `
+    document.getElementById(
+      'inbound'
+    ).innerHTML = `Trip End: ${travelData.date_return}`
     document.getElementById(
       'tripDuration'
-    ).innerHTML = `You trip is ${travelData.tripDuration} days long!`
+    ).innerHTML = `Trip Duration: ${travelData.tripDuration} days `
+    document.getElementById(
+      'daysTillDepart'
+    ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
 
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 4) {
@@ -192,7 +201,7 @@ const updateUI = async imageURL => {
           'https://www.weatherbit.io/static/img/icons/' +
           travelData.data[i].weather.icon +
           '.png'
-        icon.alt = 'wether icon'
+        icon.alt = 'weather icon'
 
         weatherForecast.appendChild(date)
         weatherForecast.appendChild(highTemp)
