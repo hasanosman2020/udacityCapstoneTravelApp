@@ -22,12 +22,12 @@ document.getElementById('depart_btn').addEventListener('click', performAction)
 export async function performAction (e) {
   e.preventDefault()
   const destination_city = document.getElementById('destination_city').value
-  const dateDepart = document.getElementById('dateDepart').valueAsDate
-  const date_return = document.getElementById('date_return').valueAsDate
+  const dateDepart = document.getElementById('dateDepart').value
+  const dateReturn = document.getElementById('dateReturn').value
   const daysTillDepart = getDaysTillDepart(dateDepart)
-  const tripDuration = getTripDuration(dateDepart, date_return)
-  /*const travelDuration = getTravelDtion(date_depart, date_return)*/
-  if (daysTillDepart <= 7) {
+  const tripDuration = getTripDuration(dateDepart, dateReturn)
+
+  if (daysTillDepart <= 1) {
     weatherbitBaseUrl = weatherbitCurrent
   } else {
     weatherbitBaseUrl = weatherbitForecast
@@ -46,8 +46,8 @@ export async function performAction (e) {
       return postData('/', {
         data: data.data,
         destination: destination_city,
-        departure: dateDepart,
-        return: date_return,
+        dateDepart: dateDepart,
+        dateReturn: dateReturn,
         tripDuration: tripDuration,
         daysTillDepart: daysTillDepart
       })
@@ -72,9 +72,9 @@ function getDaysTillDepart (dateDepart) {
 }
 
 //Function that generates the trip duration
-function getTripDuration (dateDepart, date_return) {
+function getTripDuration (dateDepart, dateReturn) {
   const tripLengthDepart = Date.parse(dateDepart)
-  const tripLengthReturn = Date.parse(date_return)
+  const tripLengthReturn = Date.parse(dateReturn)
   const diff = Math.abs(tripLengthDepart - tripLengthReturn)
   const tripDuration = Math.ceil(diff / (1000 * 60 * 60 * 24))
   console.log(tripDuration)
@@ -165,7 +165,7 @@ const updateUI = async imageURL => {
     ).innerHTML = `Trip Start: ${travelData.dateDepart} `
     document.getElementById(
       'inbound'
-    ).innerHTML = `Trip End: ${travelData.date_return}`
+    ).innerHTML = `Trip End: ${travelData.dateReturn}`
     document.getElementById(
       'tripDuration'
     ).innerHTML = `Trip Duration: ${travelData.tripDuration} days `
@@ -174,7 +174,7 @@ const updateUI = async imageURL => {
     ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
 
     //if trip is less than 4 days away, display the current weather
-    if (travelData.daysTillDepart <= 4) {
+    if (travelData.daysTillDepart <= 1) {
       document.getElementById('weatherCurrent').innerHTML =
         'Current weather: ' + travelData.data[0].temp + ' °C '
       const weatherIcon = document.createElement('img')

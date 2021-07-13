@@ -6,14 +6,13 @@
 
 body {
   margin: 0;
-  background: #fffff8;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 header {
   display: flex;
   width: 100%;
   position: fixed;
-  background-color: #b8b8b8;
+  /*background-color: #b8b8b8;*/
   border-bottom: 3px solid #f0b020;
   grid-area: header;
 }
@@ -21,7 +20,7 @@ header {
 .logo {
   font-size: 1em;
   font-family: "Bebas Neue", sans-serif;
-  color: #1A1D25;
+  color: #1a1d25;
 }
 
 footer {
@@ -36,9 +35,8 @@ footer {
   font-family: "Bebas Neue", sans-serif;
 }
 
-.headline{
+.headline {
   margin-top: 0;
-
 }
 
 #container {
@@ -50,10 +48,10 @@ footer {
     "header header header"
     "main main main"
     "footer footer footer";
-    justify-content: center;
+  justify-content: center;
   height: 100vh;
   background: #fffff8;
-  color: #1A1D25;
+  color: #1a1d25;
   //justify-content: center;
   //grid-gap: 1em;
   font-size: 20px;
@@ -64,7 +62,7 @@ footer {
   grid-area: header;
   display: flex;
 }
- #app{
+#app {
   display: flex;
   flex-direction: column;
   grid-template-rows: repeat(4, 1fr);
@@ -81,8 +79,7 @@ section.headline {
   margin: 0 auto;
   padding-top: 0;
   padding-bottom: 2em;
-  text-decoration: underline; 
-  
+  text-decoration: underline;
 }
 
 section.destination {
@@ -95,7 +92,7 @@ section.destination {
 section.departure,
 section.return {
   padding-top: 1em;
-  padding-left:3em;
+  padding-left: 3em;
 }
 
 section.return {
@@ -125,14 +122,14 @@ input {
     outline: none;
   }}
   */
-  
+
 input {
   display: block;
   border: none;
   margin-left: 10px;
   margin-top: 3px;
   font-size: 14px;
-  color: #1A1D25;
+  color: #1a1d25;
   background: #b8b8b8;
 }
 
@@ -143,7 +140,7 @@ button {
   border: 2px solid #f0b020;
   border-radius: 0.25rem;
   background: #b8b8b8;
-  color: #1A1D25;
+  color: #1a1d25;
   font-family: "Oswald", sans-serif;
   font-size: 1rem;
   line-height: 1.2;
@@ -185,17 +182,14 @@ button {
   transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
-
   &:hover,
   &:focus {
     background: #f0b020;
   }
-
   &:focus {
     outline: 1px solid #f0b020;
     outline-offset: -4px;
   }
-
   &:active {
     transform: scale(0.99);
   }
@@ -209,6 +203,11 @@ button {
 }
 */
 
-.logo{
+.logo {
   padding: 0.2em 0.5em;
+}
+
+#backgroundimg {
+  height: 75px;
+  width: 75px;
 }
