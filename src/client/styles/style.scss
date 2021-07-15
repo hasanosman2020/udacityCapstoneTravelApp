@@ -8,40 +8,13 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
-header {
-  display: flex;
-  width: 100%;
-  position: fixed;
-  /*background-color: #b8b8b8;*/
-  border-bottom: 3px solid #f0b020;
-  grid-area: header;
-}
-
-.logo {
-  font-size: 1em;
-  font-family: "Bebas Neue", sans-serif;
-  color: #1a1d25;
-}
-
-footer {
-  bottom: 0;
-  width: 100%;
-  position: fixed;
-  padding: 0.5em 1em;
-  color: #707070;
-  border-top: 3px solid #f0b020;
-  background-color: #b8b8b8; /*var(--bgcolourhf)*/
-  font-size: 0.7rem;
-  font-family: "Bebas Neue", sans-serif;
-}
-
+/*
 .headline {
-  margin-top: 0;
-}
+  margin-top: 1rem;
+}*/
 
 #container {
   display: grid;
-  // grid-auto-rows: minmax(100px, 1fr, 100px);
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto;
   grid-template-areas:
@@ -54,21 +27,14 @@ footer {
   color: #1a1d25;
   //justify-content: center;
   //grid-gap: 1em;
-  font-size: 20px;
   font-family: "Oswald", sans-serif;
 }
 
-.headline {
-  grid-area: header;
-  display: flex;
-}
 #app {
   display: flex;
   flex-direction: column;
   grid-template-rows: repeat(4, 1fr);
   grid-template-columns: 1;
-  /*grid-template-rows: 1fr;
-  grid-template-columns: 1fr minmax(0, 600px) 1fr;*/
   grid-area: main;
   overflow: auto;
   padding: 50px 10px;
@@ -76,10 +42,13 @@ footer {
 }
 
 section.headline {
+  grid-area: header;
+  display: flex;
   margin: 0 auto;
-  padding-top: 0;
-  padding-bottom: 2em;
+  padding-top: 2.5rem;
+  padding-bottom: 0;
   text-decoration: underline;
+  font-size: 1.75em;
 }
 
 section.destination {
@@ -87,12 +56,14 @@ section.destination {
   padding-bottom: 2em;
   border-bottom: 2px solid #f0b020;
   border-top: 2px solid #f0b020;
+  font-size: 1.5em;
 }
 
 section.departure,
 section.return {
   padding-top: 1em;
   padding-left: 3em;
+  font-size: 1.5em;
 }
 
 section.return {
@@ -105,8 +76,8 @@ section.return {
 }
 label {
   display: block;
-  font-size: 12px;
-  font-family: Montserrat, sans-serif;
+  font-size: 0.75em;
+  font-family: Oswald, sans-serif;
 }
 /*
 input {
@@ -128,7 +99,7 @@ input {
   border: none;
   margin-left: 10px;
   margin-top: 3px;
-  font-size: 14px;
+  font-size: 0.65em;
   color: #1a1d25;
   background: #b8b8b8;
 }
@@ -151,6 +122,7 @@ button {
   cursor: pointer;
   text-align: center;
   box-shadow: 2px 4px 5px;
+  margin-top: 0.5rem;
 
   &:hover,
   &:focus {
@@ -165,49 +137,19 @@ button {
     transform: scale(0.99);
   }
 }
-/*
-button {
-  display: inline-block;
-  border: 2px solid #f0b020;
-  padding: 1rem 2rem;
-  margin: 0;
-  text-decoration: none;
-  background: #b8b8b8;
-  color: black;
-  font-family: sans-serif;
-  font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  &:hover,
-  &:focus {
-    background: #f0b020;
-  }
-  &:focus {
-    outline: 1px solid #f0b020;
-    outline-offset: -4px;
-  }
-  &:active {
-    transform: scale(0.99);
-  }
-}
-/* Button styles end */
 
-/*
-.holder {
-  display: flex;
-  padding: 10px;
-}
-*/
-
-.logo {
-  padding: 0.2em 0.5em;
+#weatherCurrent,
+#weatherForecast {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 50px auto;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
-#backgroundimg {
-  height: 75px;
-  width: 75px;
+#forecastheader {
+  margin: 1rem;
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: underline;
 }

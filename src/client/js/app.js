@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-
+let returnDate
 /*Global Variables*/
 //Geonames API
 const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
@@ -15,6 +15,8 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 //Pixabay API
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
 const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
+
+const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/all'
 
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
 document.getElementById('depart_btn').addEventListener('click', performAction)
@@ -56,7 +58,10 @@ export async function performAction (e) {
       return getPixabayData(pixabayBaseUrl, pixabayApiKey, destination_city)
     })
     .then(function (data) {
-      updateUI(data.hits[0].webformatURL)
+      updateUI(data.hits[0].imageURL)
+    })
+    .then(function (data) {
+      return getRestCountriesInfo(restCountriesBaseUrl)
     })
 }
 
@@ -131,6 +136,18 @@ export const getPixabayData = async (
   }
 }
 
+export const getRestCountriesInfo = async restCountriesBaseUrl => {
+  const res = await fetch('https://restcountries.eu/rest/v2/all')
+  try {
+    const data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log('error', error)
+    alert('The requested country information is not available.')
+  }
+}
+
 //Function to POST data
 export const postData = async (url = ' ', data = {}) => {
   console.log(`Data is ${data}`)
@@ -168,15 +185,22 @@ const updateUI = async imageURL => {
     ).innerHTML = `Trip End: ${travelData.dateReturn}`
     document.getElementById(
       'tripDuration'
-    ).innerHTML = `Trip Duration: ${travelData.tripDuration} days `
-    document.getElementById(
-      'daysTillDepart'
-    ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
+    ).innerHTML = `Trip Duration: ${travelData.tripDuration} days`
+    if (travelData.daysTillDepart === 1) {
+      document.getElementById('daysTillDepart').innerHTML =
+        'Your trip starts tomorrow!'
+    } else {
+      document.getElementById(
+        'daysTillDepart'
+      ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
+    }
+    document.getElementById('capital').innerHTML = 'Capital: '
 
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 1) {
-      document.getElementById('weatherCurrent').innerHTML =
-        'Current weather: ' + travelData.data[0].temp + ' °C '
+      document.getElementById(
+        'weatherCurrent'
+      ).innerHTML = `Today\'s weather: ${travelData.data[0].temp} °C `
       const weatherIcon = document.createElement('img')
       weatherIcon.id = 'icon'
       weatherIcon.src =
@@ -186,7 +210,8 @@ const updateUI = async imageURL => {
       document.getElementById('weatherCurrent').appendChild(weatherIcon)
     } else {
       document.getElementById('weatherForecast').innerHTML =
-        '16 Day Weather Forecast'
+        '16- Day Weather Forecast'
+
       for (let i = 0; i < 16; i++) {
         const weatherForecast = document.getElementById('weatherForecast')
 
@@ -209,6 +234,7 @@ const updateUI = async imageURL => {
         weatherForecast.appendChild(icon)
       }
     }
+    document.getElementById('capital').innerHTML = 'Capital: '
   } catch (error) {
     console.log('error', error)
   }

@@ -15,8 +15,8 @@
       <h1 class="logo">Hasan Osman</h1>
       <!--<h2-- class="sub_logo">Software Engineer</h2-->
     </header>
-    <main id="app">
-      <section class="headline">Travel Planner</section>
+    <body id="app">
+      <section class="headline">Journey Plan</section>
       <section class="destination">
         <label for="destination_city">Destination:</label>
         <input
@@ -46,6 +46,7 @@
       </section>
 
       <img id="picture" />
+    <section class="travelinfo">
       <div id="location"></div>
       <div id="outbound"></div>
       <div id="inbound"></div>
@@ -53,49 +54,26 @@
       <div id="daysTillDepart"></div>
       <div id="destination"></div>
       <div id="weatherCurrent"></div>
-      <div id="weatherForecast"></div>
+      <div id="weatherForecast">
+        <!--<p><span id="forecastheader">16-Day Weather Forecast</span> </p>-->
+      </div>
+    </section>
 
-      <!--
-      <form" class="pure-form" style="margin: 30px 0 40px">
-        <input
-          id="weatherbit-city-forecast"
-          autofocus=""
-          name="geo-lookup"
-          placeholder="City,ST or lat,lon"
-          style="width: 100%; max-width: 600px; outline: 0"
-          autocomplete="off"
-          type="text"
-        />
-        <input id="weatherbit-get-data" type="button" value="Get Forecast" />
-        <input id="weatherbit-show-metric" type="checkbox" value="false" />
-        <label for="weatherbit-show-metric">Use Metric Units</label>
-      </form>
+      <section class="countryinfo">
+        <div id="flagcontainer">
+         <!-- <img src=" " alt=" ">-->
+        </div>
+        <div id="infocontainer">
+          <div id='capital'></div>
+          <div id='population'></div>
+          <div id='language'></div>
+          <div id='currencies'></div>
+          <div id='diallingcode'></div>
+          <div id='region'></div>
+          <div id='subregion'></div>
+        </div>
 
-      <div id="weatherbit-city-name-forecast"></div>
-      <div id="forecast-1"></div>
-      <div id="forecast-2"></div>
-      <div id="forecast-3"></div>
-
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-      <script type="text/javascript">
-        window.weatherbitWidgetParams = {
-          key: "334b39cd7f05408190e076877f6411f9",
-          autocomplete_container: "city-form",
-          forecast_1: "forecast-1",
-          forecast_2: "forecast-2",
-          forecast_3: "forecast-3",
-          cities_file: "cities-tropical",
-        };
-        (function () {
-          var script = document.createElement("script");
-          script.type = "text/javascript";
-          script.async = true;
-          script.src =
-            "https://www.weatherbit.io/static/widgets/forecast-series-widget.min.js";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(script, s);
-        })();
-      </script>-->
+      </section>
     </main>
     <footer id="footer">
       Copyright&copy 2020 <strong>Hasan Osman</strong>. All Rights Reserved.
