@@ -1,5 +1,9 @@
+/*TODO
+- adjust the size of country image
+*/
+
 import fetch from 'node-fetch'
-let returnDate
+let countriesData
 /*Global Variables*/
 //Geonames API
 const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
@@ -16,13 +20,14 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
 const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 
-const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/all'
+const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/all/'
 
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
 document.getElementById('depart_btn').addEventListener('click', performAction)
 
 export async function performAction (e) {
   e.preventDefault()
+  /* const destinationCountry = document.getElementById('destinationCountry').value*/
   const destination_city = document.getElementById('destination_city').value
   const dateDepart = document.getElementById('dateDepart').value
   const dateReturn = document.getElementById('dateReturn').value
@@ -61,7 +66,7 @@ export async function performAction (e) {
       updateUI(data.hits[0].imageURL)
     })
     .then(function (data) {
-      return getRestCountriesInfo(restCountriesBaseUrl)
+      return getRestCountriesInfo(countriesData)
     })
 }
 
@@ -135,7 +140,22 @@ export const getPixabayData = async (
     alert('Cannot find your destination')
   }
 }
+/*
+export function getRestCountriesInfo (countriesData) {
+  let options = ' '
+  for (let i = 0; i < countriesData.length; i++) {
+    options += `<option value="${countriesData[i].name}">${countriesData[i].name}</option>`
+  }
+  document.getElementById('countriesData').innerHTML = options
+}
+*/
+/*
 
+function getRestCountriesInfo (countriesData) {
+  console.log(countriesData)
+}
+*/
+/*
 export const getRestCountriesInfo = async restCountriesBaseUrl => {
   const res = await fetch('https://restcountries.eu/rest/v2/all')
   try {
@@ -146,7 +166,7 @@ export const getRestCountriesInfo = async restCountriesBaseUrl => {
     console.log('error', error)
     alert('The requested country information is not available.')
   }
-}
+}*/
 
 //Function to POST data
 export const postData = async (url = ' ', data = {}) => {
@@ -194,7 +214,6 @@ const updateUI = async imageURL => {
         'daysTillDepart'
       ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
     }
-    document.getElementById('capital').innerHTML = 'Capital: '
 
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 1) {
@@ -210,7 +229,7 @@ const updateUI = async imageURL => {
       document.getElementById('weatherCurrent').appendChild(weatherIcon)
     } else {
       document.getElementById('weatherForecast').innerHTML =
-        '16- Day Weather Forecast'
+        "<span style='font - size:2.5em;text-decoration:underline;text-align:center;color:green;display:block;'>16- Day Weather Forecast</span>"
 
       for (let i = 0; i < 16; i++) {
         const weatherForecast = document.getElementById('weatherForecast')
@@ -230,11 +249,27 @@ const updateUI = async imageURL => {
 
         weatherForecast.appendChild(date)
         weatherForecast.appendChild(highTemp)
+        weatherForecast.appendChild(icon)
         weatherForecast.appendChild(lowTemp)
         weatherForecast.appendChild(icon)
       }
     }
-    document.getElementById('capital').innerHTML = 'Capital: '
+    fetch('https://restcountries.eu/rest/v2/all')
+      .then(res => res.json())
+      .then(data => getRestCountriesInfo(data))
+      .catch(err => console.log('error', err))
+
+    function getRestCountriesInfo (countriesData) {
+      console.log(countriesData)
+      let options = ' '
+      for (let i = 0; i < countriesData.length; i++) {
+        options += `<option value="${countriesData[i].name}">${countriesData[i].name}</option>`
+      }
+      document.getElementById('countriesData').innerHTML = options
+      console.log(
+        `Capital of ${countriesData[0].name} is ${countriesData[0].capital}`
+      )
+    }
   } catch (error) {
     console.log('error', error)
   }

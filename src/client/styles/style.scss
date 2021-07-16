@@ -4,6 +4,10 @@
 @import "./header.scss";
 @import "./footer.scss";
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -148,8 +152,14 @@ button {
 }
 
 #forecastheader {
-  margin: 1rem;
-  font-size: 1em;
+  margin: auto 0;
+  font-size: 1.5em;
   font-weight: bold;
   text-decoration: underline;
+}
+
+#picture {
+  display: block;
+  width: 502px;
+  height: 252px;
 }

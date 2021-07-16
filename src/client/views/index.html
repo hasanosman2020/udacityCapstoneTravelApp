@@ -18,7 +18,10 @@
     <body id="app">
       <section class="headline">Journey Plan</section>
       <section class="destination">
-        <label for="destination_city">Destination:</label>
+        <label for="countriesData">Select country of destination:</label>
+        <select id="countriesData">
+        </select>
+        <label for="destination_city">Enter city of destination</label>
         <input
           type="text"
           id="destination_city"
@@ -54,9 +57,7 @@
       <div id="daysTillDepart"></div>
       <div id="destination"></div>
       <div id="weatherCurrent"></div>
-      <div id="weatherForecast">
-        <!--<p><span id="forecastheader">16-Day Weather Forecast</span> </p>-->
-      </div>
+      <div id="weatherForecast"></div>
     </section>
 
       <section class="countryinfo">
