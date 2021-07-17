@@ -56,7 +56,9 @@ function addData (req, res) {
     daysTillDepart: req.body.daysTillDepart,
     tripDuration: req.body.tripDuration,
     name: req.body.name,
-    capital: req.body.capital
+    capital: req.body.capital,
+    population: req.body.population,
+    language: req.body.language
   }
 
   travelData.data = req.body.data
@@ -67,6 +69,8 @@ function addData (req, res) {
   travelData.tripDuration = req.body.tripDuration
   countriesData.name = req.body.name
   countriesData.capital = req.body.capital
+  countriesData.population = req.body.population
+  countriesData.language = req.body.language
 
   res.send(newData)
 }
