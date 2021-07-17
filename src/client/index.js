@@ -1,6 +1,7 @@
 console.log('Interesting!')
 
 import { performAction } from './js/app'
+import { getRestCountries } from './js/countrieslist'
 /*import { getWeatherbitData } from './js/app'
 import { getPixabayData } from './js/app'
 import { postData } from './js/app'
@@ -12,6 +13,7 @@ import './styles/header.scss'
 import './styles/footer.scss'
 
 export { performAction }
+export { getRestCountries }
 /*export { getWeatherbitData } from './js/app'
 export { getPixabayData } from './js/app'
 export { postData } from './js/app'

@@ -3,7 +3,7 @@
 */
 
 import fetch from 'node-fetch'
-let countriesData
+let countries
 /*Global Variables*/
 //Geonames API
 const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
@@ -19,8 +19,6 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 //Pixabay API
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
 const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
-
-const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/all/'
 
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
 document.getElementById('depart_btn').addEventListener('click', performAction)
@@ -65,9 +63,9 @@ export async function performAction (e) {
     .then(function (data) {
       updateUI(data.hits[0].imageURL)
     })
-    .then(function (data) {
+  /*.then(function (data) {
       return getRestCountriesInfo(countriesData)
-    })
+    })*/
 }
 
 //Function that generates the countdown to date of departure
@@ -140,6 +138,31 @@ export const getPixabayData = async (
     alert('Cannot find your destination')
   }
 }
+
+//the code below ['...error)}}] retrieves the information from the restcountries API and shows them in the browser console
+/*
+export const getRestCountriesInfo = async (restCountriesBaseUrl, name) => {
+  const res = await fetch('https://restcountries.eu/rest/v2/all')
+  try {
+    const data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log('error', error)
+  }
+
+  function getRestCountriesInfo (countriesData) {
+    countries = countriesData
+    let options = ' '
+    for (let i = 0; i < countriesData.length; i++) {
+      options += `<option value=${countriesData.name}>${countriesData.name}</option>`
+    }
+    document.getElementById('countriesData').innerHTML = options
+  }
+}
+*/
+//after retrieving the restcountries api info from the code above we now need to initialise the page, i.e. display the information on the page, populate the select option list with the actual data and display the information of the country
+
 /*
 export function getRestCountriesInfo (countriesData) {
   let options = ' '
@@ -254,11 +277,23 @@ const updateUI = async imageURL => {
         weatherForecast.appendChild(icon)
       }
     }
-    fetch('https://restcountries.eu/rest/v2/all')
-      .then(res => res.json())
-      .then(data => getRestCountriesInfo(data))
-      .catch(err => console.log('error', err))
+  } catch (error) {
+    console.log('error', error)
+  }
+}
 
+/*
+  .then(function (res) {
+    return res.json()
+  })
+  .then(function (data) {
+    console.log(data)
+  })
+  .catch(function (error) {
+    console.log('error', error)
+  })
+
+/*
     function getRestCountriesInfo (countriesData) {
       console.log(countriesData)
       let options = ' '
@@ -266,11 +301,11 @@ const updateUI = async imageURL => {
         options += `<option value="${countriesData[i].name}">${countriesData[i].name}</option>`
       }
       document.getElementById('countriesData').innerHTML = options
-      console.log(
-        `Capital of ${countriesData[0].name} is ${countriesData[0].capital}`
-      )
     }
+    document.getElementById(
+      'capital'
+    ).innerHTML = `Capital: ${countriesData[i].capital}`
   } catch (error) {
     console.log('error', error)
   }
-}
+}*/
