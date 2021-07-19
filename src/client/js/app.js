@@ -150,7 +150,6 @@ export const getRestCountriesInfo = async (restCountriesBaseUrl, name) => {
   } catch (error) {
     console.log('error', error)
   }
-
   function getRestCountriesInfo (countriesData) {
     countries = countriesData
     let options = ' '
@@ -173,7 +172,6 @@ export function getRestCountriesInfo (countriesData) {
 }
 */
 /*
-
 function getRestCountriesInfo (countriesData) {
   console.log(countriesData)
 }
@@ -292,7 +290,6 @@ const updateUI = async imageURL => {
   .catch(function (error) {
     console.log('error', error)
   })
-
 /*
     function getRestCountriesInfo (countriesData) {
       console.log(countriesData)

@@ -24,19 +24,24 @@ export function getRestCountries (countriesData) {
 function displayCountryInfo (countryByName) {
   const countryData = countries.find(country => country.name === countryByName)
   console.log(countryData)
-  document.getElementById('capital').innerHTML = countryData.capital
   document.getElementById(
-    'diallingcolde'
-  ).innerHTML = +`${countryData.callingCodes[0]}`
+    'capital'
+  ).innerHTML = `Capital: ${countryData.capital}`
+  document.getElementById('diallingcode').innerHTML =
+    'Dialling Code: +' + countryData.callingCodes[0]
   document.getElementById(
     'population'
-  ).innerHTML = countryData.population.toLocaleString('en-US')
-  document.getElementById('currencies').innerHTML = countryData.currencies
-    .filter(currency => currency.name)
-    .map(currency => `${currency.name} (${currency.code})`)
-    .join(', ')
-  document.getElementById('region').innerHTML = countryData.region
-  document.getElementById('subregion').innerHTML = countryData.subregion
+  ).innerHTML = `Population: ${countryData.population}`
+  document.getElementById('currencies').innerHTML =
+    'Currency: ' +
+    countryData.currencies
+      .filter(currency => currencies.name)
+      .map(currencies => `${currencies.name} (${currencies.code})`)
+      .join(', ')
+  document.getElementById('region').innerHTML = `Region: ${countryData.region}`
+  document.getElementById(
+    'subregion'
+  ).innerHTML = `Sub-Region: ${countryData.subregion}`
   document.getElementById('flagcontainer').src = countryData.flag
   document.getElementById('flagcontainer').alt = `Flag of ${countryData.name}`
 }
