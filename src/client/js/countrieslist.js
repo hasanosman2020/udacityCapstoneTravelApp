@@ -1,6 +1,12 @@
 import fetch from 'node-fetch'
 
+const countriesList = document.getElementById('countriesData')
 let countries
+
+countriesList.addEventListener('change', function (event) {
+  // console.log(event.target.value)
+  displayCountryInfo(event.target.value)
+})
 
 fetch('https://restcountries.eu/rest/v2/all')
   .then(res => res.json())
@@ -10,20 +16,28 @@ fetch('https://restcountries.eu/rest/v2/all')
 export function getRestCountries (countriesData) {
   countries = countriesData
   let options = ' '
-  for (let i = 0; i < countries.length; i++) {
-    options += `<option value="${countries[i].name}">${countries[i].name}</option>`
-    //countries.forEach(
-    //country =>
-    //(options += `<option value="${country.name}">${country.name}</option>`)
-  }
-  const countriesList = document.getElementById('countriesData')
+  //for (let i = 0; i < countries.length; i++) {
+  //options += `<option value="${countries[i].name}">${countries[i].name}</option>`
+  countries.forEach(
+    country =>
+      (options += `<option value="${country.alpha3Code}">${country.name}</option>`)
+  )
+
   countriesList.innerHTML = options
-  displayCountryInfo('France')
+  //console.log(countriesList.value)
+  //console.log(countriesList.length)
+  countriesList.selectedIndex = Math.floor(Math.random() * countriesList.length)
+  // console.log(countriesList[10].value)
+
+  displayCountryInfo(countriesList[countriesList.selectedIndex].value)
 }
 
-function displayCountryInfo (countryByName) {
-  const countryData = countries.find(country => country.name === countryByName)
+function displayCountryInfo (countryByAlpha3Code) {
+  const countryData = countries.find(
+    country => country.alpha3Code === countryByAlpha3Code
+  )
   console.log(countryData)
+
   document.getElementById(
     'capital'
   ).innerHTML = `Capital: ${countryData.capital}`
@@ -35,13 +49,11 @@ function displayCountryInfo (countryByName) {
   document.getElementById('currencies').innerHTML =
     'Currency: ' +
     countryData.currencies
-      .filter(currency => currencies.name)
-      .map(currencies => `${currencies.name} (${currencies.code})`)
+      .filter(c => c.name)
+      .map(c => `${c.name} (${c.code})`)
       .join(', ')
   document.getElementById('region').innerHTML = `Region: ${countryData.region}`
   document.getElementById(
     'subregion'
   ).innerHTML = `Sub-Region: ${countryData.subregion}`
-  document.getElementById('flagcontainer').src = countryData.flag
-  document.getElementById('flagcontainer').alt = `Flag of ${countryData.name}`
 }

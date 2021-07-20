@@ -46,16 +46,15 @@ module.exports = {
         use: ['css-loader']
       },
       {
-        test: /\.(png | jpe?g | gif)$/i,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: '[name].[ext]',
-              putputPath: 'assets/icon'
-            }
+        test: /\.(png | svg | jpe?g | gif)$/i,
+        exclude: ['/node_modules/', require.resolve('./src/client/index.js')],
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'assets/icon'
           }
-        ]
+        }
       },
       {
         test: /\.html$/i,
