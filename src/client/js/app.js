@@ -250,7 +250,7 @@ const updateUI = async imageURL => {
       document.getElementById('weatherCurrent').appendChild(weatherIcon)
     } else {
       document.getElementById('weatherHeading').innerHTML =
-        '16- Day Weather Forecast'
+       "<p></p>" '16- Day Weather Forecast'
 
       for (let i = 0; i < 16; i++) {
         const weatherForecast = document.getElementById('weatherForecast')
