@@ -20,47 +20,10 @@
       <section class="destination">
         <label for="countriesData">Select country of destination:</label>
         <select id="countriesData"></select>
-        <label for="destination_city">Enter city of destination</label>
-        <input
-          type="text"
-          id="destination_city"
-          placeholder="enter your destination"
-        />
       </section>
-      <section class="departure">
-        <label for="dateDepart">Date of Departure:</label>
-        <input
-          type="date"
-          id="dateDepart"
-          placeholder="insert your departure date"
-        />
-      </section>
-      <section class="return">
-        <label for="dateReturn">Date of Return:</label>
-        <input
-          type="date"
-          id="dateReturn"
-          placeholder="insert your date of arrival"
-        />
-      </section>
-      <section class="submit">
-        <button id="depart_btn" type="submit">Let's Go!</button>
-      </section>
-
-      <img id="picture" />
-      <section class="travelinfo">
-        <div id="location"></div>
-        <div id="outbound"></div>
-        <div id="inbound"></div>
-        <div id="tripDuration"></div>
-        <div id="daysTillDepart"></div>
-        <div id="destination"></div>
-        <div id="weatherCurrent"></div>
-        <div id="weatherForecast"></div>
-      </section>
-
       <section class="countryinfo">
         <div id="infocontainer">
+          <h3>Useful Traveller's Information</h3>
           <div id="country"></div>
           <div id="capital"></div>
           <div id="population"></div>
@@ -70,6 +33,49 @@
           <div id="region"></div>
           <div id="subregion"></div>
         </div>
+      </section>
+      <div id="traveldates">
+        <section class="destination">
+          <label for="destination_city">Enter city of destination</label>
+          <input
+            type="text"
+            id="destination_city"
+            placeholder="enter your destination"
+          />
+        </section>
+        <section class="departure">
+          <label for="dateDepart">Date of Departure:</label>
+          <input
+            type="date"
+            id="dateDepart"
+            placeholder="insert your departure date"
+          />
+        </section>
+        <section class="return">
+          <label for="dateReturn">Date of Return:</label>
+          <input
+            type="date"
+            id="dateReturn"
+            placeholder="insert your date of arrival"
+          />
+        </section>
+        <section class="submit">
+          <button id="depart_btn" type="submit">Let's Go!</button>
+        </section>
+      </div>
+
+      <img id="picture" />
+
+      <section class="travelinfo">
+        <div id="location"></div>
+        <div id="outbound"></div>
+        <div id="inbound"></div>
+        <div id="tripDuration"></div>
+        <div id="daysTillDepart"></div>
+        <div id="destination"></div>
+        <div id="weatherCurrent"></div>
+        <p id="weatherHeading">16-Day Weather Forecast</p>
+        <div id="weatherForecast"></div>
       </section>
     </main>
     <footer id="footer">

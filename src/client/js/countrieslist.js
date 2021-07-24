@@ -41,6 +41,12 @@ function displayCountryInfo (countryByAlpha3Code) {
   document.getElementById(
     'capital'
   ).innerHTML = `Capital: ${countryData.capital}`
+  document.getElementById('language').innerHTML =
+    'Language(s): ' +
+    countryData.languages
+      .filter(n => n.name)
+      .map(n => `${n.name}`)
+      .join(', ')
   document.getElementById('diallingcode').innerHTML =
     'Dialling Code: +' + countryData.callingCodes[0]
   document.getElementById(
