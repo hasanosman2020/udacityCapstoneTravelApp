@@ -139,59 +139,9 @@ export const getPixabayData = async (
   }
 }
 
-//the code below ['...error)}}] retrieves the information from the restcountries API and shows them in the browser console
-/*
-export const getRestCountriesInfo = async (restCountriesBaseUrl, name) => {
-  const res = await fetch('https://restcountries.eu/rest/v2/all')
-  try {
-    const data = await res.json()
-    console.log(data)
-    return data
-  } catch (error) {
-    console.log('error', error)
-  }
-  function getRestCountriesInfo (countriesData) {
-    countries = countriesData
-    let options = ' '
-    for (let i = 0; i < countriesData.length; i++) {
-      options += `<option value=${countriesData.name}>${countriesData.name}</option>`
-    }
-    document.getElementById('countriesData').innerHTML = options
-  }
-}
-*/
-//after retrieving the restcountries api info from the code above we now need to initialise the page, i.e. display the information on the page, populate the select option list with the actual data and display the information of the country
-
-/*
-export function getRestCountriesInfo (countriesData) {
-  let options = ' '
-  for (let i = 0; i < countriesData.length; i++) {
-    options += `<option value="${countriesData[i].name}">${countriesData[i].name}</option>`
-  }
-  document.getElementById('countriesData').innerHTML = options
-}
-*/
-/*
-function getRestCountriesInfo (countriesData) {
-  console.log(countriesData)
-}
-*/
-/*
-export const getRestCountriesInfo = async restCountriesBaseUrl => {
-  const res = await fetch('https://restcountries.eu/rest/v2/all')
-  try {
-    const data = await res.json()
-    console.log(data)
-    return data
-  } catch (error) {
-    console.log('error', error)
-    alert('The requested country information is not available.')
-  }
-}*/
-
 //Function to POST data
 export const postData = async (url = ' ', data = {}) => {
-  console.log(`Data is ${data}`)
+  //console.log(`Data is ${data}`)
   const res = await fetch('http://localhost:3000', {
     method: 'POST',
     credentials: 'same-origin',
@@ -250,7 +200,7 @@ const updateUI = async imageURL => {
       document.getElementById('weatherCurrent').appendChild(weatherIcon)
     } else {
       document.getElementById('weatherHeading').innerHTML =
-       "<p></p>" '16- Day Weather Forecast'
+        '16- Day Weather Forecast'
 
       for (let i = 0; i < 16; i++) {
         const weatherForecast = document.getElementById('weatherForecast')
@@ -279,30 +229,3 @@ const updateUI = async imageURL => {
     console.log('error', error)
   }
 }
-
-/*
-  .then(function (res) {
-    return res.json()
-  })
-  .then(function (data) {
-    console.log(data)
-  })
-  .catch(function (error) {
-    console.log('error', error)
-  })
-/*
-    function getRestCountriesInfo (countriesData) {
-      console.log(countriesData)
-      let options = ' '
-      for (let i = 0; i < countriesData.length; i++) {
-        options += `<option value="${countriesData[i].name}">${countriesData[i].name}</option>`
-      }
-      document.getElementById('countriesData').innerHTML = options
-    }
-    document.getElementById(
-      'capital'
-    ).innerHTML = `Capital: ${countriesData[i].capital}`
-  } catch (error) {
-    console.log('error', error)
-  }
-}*/

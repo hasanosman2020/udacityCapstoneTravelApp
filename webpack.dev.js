@@ -37,16 +37,35 @@ module.exports = {
           }
         }
       },
+
       {
         test: /\.scss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       },
+      /*
+      {
+        test: /\.scss$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      },
+      */
       {
         test: /\.css$/i,
         use: ['css-loader']
       },
       {
-        test: /\.(png | svg | jpe?g | gif)$/i,
+        test: /\.(png | svg | jpg | gif)$/,
+        exclude: ['/node_modules/', require.resolve('./src/client/index.js')],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/icon'
+            }
+          }
+        ]
+      },
+      /*
         exclude: ['/node_modules/', require.resolve('./src/client/index.js')],
         use: {
           loader: 'file-loader',
@@ -56,6 +75,7 @@ module.exports = {
           }
         }
       },
+      */
       {
         test: /\.html$/i,
         loader: 'html-loader'
