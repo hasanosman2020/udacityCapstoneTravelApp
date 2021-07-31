@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 const countriesList = document.getElementById('countriesData')
 let countries
 
-countriesList.addEventListener('change', function (event) {
+countriesList.addEventListener('change', function () {
   // console.log(event.target.value)
   displayCountryInfo(event.target.value)
 })
@@ -58,8 +58,12 @@ function displayCountryInfo (countryByAlpha3Code) {
       .filter(c => c.name)
       .map(c => `${c.name} (${c.code})`)
       .join(', ')
+  //document.getElementById('timezones').innerHTML =
+  //'Timezone: ' + `${countryData.timezones[0]}`
+  //.filter(c => c.name)
+  //.map(t => `${c.name}(${c.code})`)
+  //.join(', ')
   document.getElementById('region').innerHTML = `Region: ${countryData.region}`
-  document.getElementById(
-    'subregion'
-  ).innerHTML = `Sub-Region: ${countryData.subregion}`
+  document.getElementById('subregion').innerHTML =
+    'Sub-Region: ' + countryData.subregion
 }

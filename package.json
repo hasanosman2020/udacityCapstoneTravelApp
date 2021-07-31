@@ -4,7 +4,7 @@
   "description": "This app is created by Hasan Osman for the Capstone Project of Udacity's Front End Web Developer Nano Degree programme. It is a travel app which takes user input of travel dates and location of travel and returns the weather conditions.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest  --detectOpenHandles --watchAll",
     "test:watch": "jest --watch",
     "start": "node src/server/server.js",
     "build": "webpack",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/hasanosman2020/udacityCapstoneTravelApp#readme",
   "dependencies": {
+    "@babel/runtime": "^7.14.8",
     "express": "^4.17.1",
     "node-sass": "^4.14.1",
     "regenerator-runtime": "^0.13.7",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
+    "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.2",
     "argv": "^0.0.2",
     "babel-loader": "^8.2.2",
