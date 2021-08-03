@@ -12,7 +12,7 @@
 
 body {
   margin: 1rem;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  //ßfont-family: -apple-system, BlinkMacSystemFont, sans-serif;
   // background-image: url("../views/img/travelbgimg.png");
 }
 /*
@@ -27,7 +27,7 @@ h3 {
 
 #container {
   //.display: flex;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 5px;
   grid-template-rows: auto;
   grid-template-areas:
@@ -45,8 +45,8 @@ h3 {
 
 #app {
   display: grid;
-  grid-template-rows: repeat(4, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  //grid-template-rows: repeat(4, 1fr);
+  //grid-template-columns: repeat(4, 1fr);
   grid-area: main;
   overflow: auto;
   padding: 50px 10px;
@@ -62,7 +62,7 @@ h3 {
 }
 label {
   display: block;
-  font-size: 0.75em;
+  //font-size: 1em;
   font-family: Oswald, sans-serif;
 }
 
@@ -199,29 +199,22 @@ button {
   line-height: 200%;
   //white-space: nowrap;
   //overflow: auto;
-  animation: typing 2s steps(22, end) forwards, blink 1s infinite;
-}
-@keyframes typing {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
+  animation-name: slidein;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in;
 }
 
-@keyframes blink {
-  0%,
-  100% {
-    border-right: 2px solid transparent;
+@keyframes slidein {
+  from {
+    transform: translateX(100%);
   }
-  50% {
-    border-right: 2px solid #f0b020;
+  to {
+    transform: translateX(0%);
   }
 }
 
 .travelinfo {
-  margin-top: 1.5rem;
+  //margin-top: 1.5rem;
   margin-bottom: 1.5rem;
   font-size: 1.2em;
   padding-bottom: 1.5rem;
