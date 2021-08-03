@@ -2,6 +2,7 @@
 - adjust the size of country image
 */
 
+import { displayCountryInfo } from './countrieslist'
 import fetch from 'node-fetch'
 let countries
 /*Global Variables*/
@@ -225,6 +226,7 @@ const updateUI = async imageURL => {
         weatherForecast.appendChild(icon)
       }
     }
+    displayCountryInfo()
   } catch (error) {
     console.log('error', error)
   }

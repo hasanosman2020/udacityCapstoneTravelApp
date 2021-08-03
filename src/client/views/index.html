@@ -15,28 +15,10 @@
       <h1 class="logo">Hasan Osman</h1>
       <!--<h2-- class="sub_logo">Software Engineer</h2-->
     </header>
-    <main id="app">
-      <section class="headline">Journey Plan</section>
-      <section class="destination">
-        <label for="countriesData">Select country of destination:</label>
-        <select id="countriesData"></select>
-      </section>
-      <section class="countryinfo">
-        <div id="infocontainer">
-          <h3>Useful Traveller's Information</h3>
-          <div id="country"></div>
-          <div id="capital"></div>
-          <div id="population"></div>
-          <div id="language"></div>
-          <div id="currencies"></div>
-          <div id="diallingcode"></div>
-          <div id="timezones"></div>
-          <div id="region"></div>
-          <div id="subregion"></div>
-        </div>
-      </section>
+    <div id="app">
+      <section class="headline">Journey Planner</section>
       <div id="traveldates">
-        <section class="destination">
+        <section class="destination_city">
           <label for="destination_city">Enter city of destination</label>
           <input
             type="text"
@@ -78,9 +60,28 @@
         <p id="weatherHeading"></p>
         <div id="weatherForecast"></div>
       </section>
+
+      <section class="destination">
+        <label for="countriesData">Please select your <span style=text-decoration:underline;>country</span> of destination:</label>
+        <select id="countriesData"></select>
+      <section class="countryinfo">
+        <div id="infocontainer">
+          <h3>Useful Traveller's Information</h3>
+          <div id="country"></div>
+          <div id="capital"></div>
+          <div id="population"></div>
+          <div id="language"></div>
+          <div id="currencies"></div>
+          <div id="diallingcode"></div>
+          <div id="timezones"></div>
+          <div id="region"></div>
+          <div id="subregion"></div>
+        </div>
+      </section>
+    </section>
     </main>
     <footer id="footer">
-      Copyright&copy 2020 <strong>Hasan Osman</strong>. All Rights Reserved.
+      Copyright&copy 2021<strong>Hasan Osman</strong>. All Rights Reserved.
     </footer>
   </body>
 </html>
