@@ -74,6 +74,22 @@ The structure of the project is as follows:
 - Displaying the forecast for several days rather than for just a single day.
 
 
-**Running the Travel App**
-[INSERT INSTRUCTIONS ON THE STEPS REQUIRED TO RUN THE APP]
+**Installing and Running the Travel App**
 
+In order to use the APIs you will need to register with the APIs listed above. After registering with all 3 APIs:
+- create a .env file at the root of the project;
+- in the .env file just created, add the following code:
+GEONAMES_USERNAME=XXXXXXXX
+WEATHERBIT_API_KEY=XXXXXX
+PIXABAY_API_KEY=XXXXXXXX
+(Replace the X with your api keys and username). 
+
+
+Note: for Udacity submission, filler API keys have been replaced by the user's info for ease of use, 
+
+
+**Using the Travel App**
+
+The server is set to port 3000. Start the server with the command as described above, 
+Enter your city of destination, your departure date, and your return date. This information is required.
+The travel app will function as described above. 

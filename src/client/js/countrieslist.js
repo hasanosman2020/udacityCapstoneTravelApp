@@ -38,6 +38,9 @@ function displayCountryInfo (countryByAlpha3Code) {
   )
   console.log(countryData)
 
+  document.querySelector('#flag').src = countryData.flag
+  document.getElementById('flagname').innerHTML = `Flag of ${countryData.name}`
+
   document.getElementById(
     'capital'
   ).innerHTML = `Capital: ${countryData.capital}`
