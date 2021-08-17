@@ -32,7 +32,7 @@ h3 {
 
 #container {
   //.display: flex;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-gap: 5px;
   grid-template-rows: auto;
   grid-template-areas:
@@ -188,6 +188,7 @@ button {
   grid-row: span 3 / auto;
   max-width: 75%;
   height: auto;
+  border-radius: 2%;
   //object-fit: cover;
   //object-position: center;
   margin: 2rem auto;
@@ -228,7 +229,7 @@ button {
 #flag_container {
   height: 252px;
   background-color: #fff;
-  border: 1px solid #f0b020;
+  border: 2px solid #f0b020;
 }
 
 #flag_container img {

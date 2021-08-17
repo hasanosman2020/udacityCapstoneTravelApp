@@ -28,7 +28,6 @@ In brief, the project uses an express server to store the data from the app. GET
 
 The structure of the project is as follows:
 
-
     - Root:  
         - package.json
         - readme.md
@@ -76,14 +75,27 @@ The structure of the project is as follows:
 
 **Installing and Running the Travel App**
 
-In order to use the APIs you will need to register with the APIs listed above. After registering with all 3 APIs:
-- create a .env file at the root of the project;
-- in the .env file just created, add the following code:
+- Clone the repo:
+`https://github.com/hasanosman2020/udacityCapstoneTravelApp`
+
+- Install NPM Packages:
+`npm install`
+
+- Create a .env file at the root of the project.
+
+- Register to get free API keys with the following APIs:
+
+[Geonames](http://www.geonames.org)
+
+[Weatherbit.io](https://www.weatherbit.io/)
+
+[Pixabay](https://pixabay.com/)
+
+- Enter your API keys in the .env file by adding the following code:
 GEONAMES_USERNAME=XXXXXXXX
 WEATHERBIT_API_KEY=XXXXXX
 PIXABAY_API_KEY=XXXXXXXX
-(Replace the X with your api keys and username). 
-
+(Replace the X with your api keys and username).
 
 Note: for Udacity submission, filler API keys have been replaced by the user's info for ease of use, 
 

@@ -2,8 +2,9 @@
 - adjust the size of country image
 */
 
-import { displayCountryInfo } from './countrieslist'
+//import { displayCountryInfo } from './countrieslist'
 import fetch from 'node-fetch'
+import { length } from 'file-loader'
 let countries
 /*Global Variables*/
 //Geonames API
@@ -21,6 +22,8 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
 const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 
+//REST Countries API
+const restCountriesBaseUrl = 'http://restcountries.eu/rest/v2/all/'
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
 document.getElementById('depart_btn').addEventListener('click', performAction)
 
@@ -39,7 +42,192 @@ export async function performAction (e) {
     weatherbitBaseUrl = weatherbitForecast
   }
 
+  //calls Geonames API
   getGeonamesData(destination_city)
+  getDaysTillDepart(dateDepart)
+  getTripDuration(dateDepart, dateReturn)
+}
+
+//Async function makes GET request to the Geonames API to obtain Geonames data (i.e. co-ordinates) using fetch() method
+const getGeonamesData = async destination_city => {
+  fetch(`${geonamesBaseUrl}${destination_city}&maxRows=10&username=hasan79`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      const destination_country = data.geonames[0].countryName
+      const destination_city = data.geonames[0].name
+      const lat = data.geonames[0].lat
+      const lng = data.geonames[0].lng
+      console.log(destination_country, destination_city, lat, lng)
+
+      getWeatherbitData(weatherbitBaseUrl, lat, lng, weatherbitApiKey)
+    })
+}
+
+export const getWeatherbitData = async (weatherbitBaseUrl, lat, lng) => {
+  fetch(
+    `${weatherbitBaseUrl}&lat=${lat}&lon=${lng}&key=334b39cd7f05408190e076877f6411f9`
+  )
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      const city = data.city_name
+      const temp = data.data[0].temp
+      const countrycode = data.country_code
+      const timezone = data.timezone
+      const datetime = data.data[0].datetime
+      const icon = data.data[0].weather.icon
+      const description = data.data[0].weather.description
+      const hightemp = data.data[0].high_temp
+      const lowtemp = data.data[0].low_temp
+      console.log(
+        city,
+        countrycode,
+        timezone,
+        datetime,
+        temp,
+        icon,
+        description,
+        hightemp,
+        lowtemp
+      )
+
+      updateUI(countrycode)
+
+      //getPixabayData(pixabayBaseUrl, pixabayApiKey, destination_city)
+    })
+}
+
+/*
+export const getPixabayData = async (pixabayBaseUrl, pixabayApiKey) => {
+  fetch(
+    `${pixabayBaseUrl}${pixabayApiKey}&q=${destination_city}&image_type=photo`
+  ).then(res => {
+    res.json().then(data => {
+      console.log(data)
+      if (parseInt(data.hits[0]) > 0) {
+        //print the first result if there is any result
+        const picture = data.hits[0].webformatURL
+        console.log(picture)
+      } else {
+        //print a message if there is  no result
+        console.log('No hits')
+      }
+    })
+  })
+}
+*/
+/*
+export const getRestCountries = async destination_country => {
+  fetch('https://restcountries.eu/rest/name/' + destination_city).then(res =>
+    res.json().then(data => {
+      console.log(data)
+      const destination_country = data.name
+      const capital_city = data.capital
+
+      console.log(destination_city, destination_country, capital_city)
+    })
+  )
+}
+*/
+/*
+    document.getElementById(
+      'location'
+    ).innerHTML = `Destination: ${travelData.destination}`
+    document.getElementById(
+      'outbound'
+    ).innerHTML = `Trip Start: ${travelData.dateDepart} `
+    document.getElementById(
+      'inbound'
+    ).innerHTML = `Trip End: ${travelData.dateReturn}`
+    document.getElementById(
+      'tripDuration'
+    ).innerHTML = `Trip Duration: ${travelData.tripDuration} days`
+    if (travelData.daysTillDepart === 1) {
+      document.getElementById('daysTillDepart').innerHTML =
+        'Your trip starts tomorrow!'
+    } else {
+      document.getElementById(
+        'daysTillDepart'
+      ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
+    }
+    /*
+    document.getElementById(
+      'capital'
+    ).innerHTML = `Capital: ${countryData.capital}`
+    document.getElementById('language').innerHTML =
+      'Language(s): ' +
+      countryData.languages
+        .filter(n => n.name)
+        .map(n => `${n.name}`)
+        .join(', ')
+    document.getElementById('diallingcode').innerHTML =
+      'Dialling Code: +' + countryData.callingCodes[0]
+    document.getElementById(
+      'population'
+    ).innerHTML = `Population: ${countryData.population}`
+*/
+/*
+}
+
+    .then(function (data) {
+      updateUI(data.hits[0].imageURL)
+    })
+
+
+
+  })
+  //call API
+  try {
+    const data = await res.json()
+    //console.log(data)
+    return data
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //call API
+  try {
+    const data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     .then(function (data) {
       return getWeatherbitData(
         weatherbitBaseUrl,
@@ -67,7 +255,6 @@ export async function performAction (e) {
   /*.then(function (data) {
       return getRestCountriesInfo(countriesData)
     })*/
-}
 
 //Function that generates the countdown to date of departure
 function getDaysTillDepart (dateDepart) {
@@ -79,6 +266,9 @@ function getDaysTillDepart (dateDepart) {
   console.log(daysTillDepart)
   return daysTillDepart
 }
+//dayN value between 1-15, helps select the accurate data of the  day from the fetch call
+let dayN = daysTillDepart + 1
+console.log('correct date for object data:', dayN)
 
 //Function that generates the trip duration
 function getTripDuration (dateDepart, dateReturn) {
@@ -89,7 +279,7 @@ function getTripDuration (dateDepart, dateReturn) {
   console.log(tripDuration)
   return tripDuration
 }
-
+/*
 //Async function makes GET request to the Geonames API to obtain Geonames data (i.e. co-ordinates) using fetch() method
 const getGeonamesData = async destination_city => {
   const res = await fetch(
@@ -159,89 +349,84 @@ export const postData = async (url = ' ', data = {}) => {
     console.log('error', error)
   }
 }
+*/
+const updateUI = async countrycode => {
+  fetch(`https://restcountries.eu/rest/v2/alpha/${countrycode}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      const countryName = data.name
+      const capital = data.capital
+      const timezone = data.timezones
+      const language = data.languages
+      const dialCode = data.callingCodes
+      const population = data.population
+      const currency = data.currencies
+      const region = data.region
+      const subregion = data.subregion
 
-const updateUI = async imageURL => {
+      console.log(
+        countryName,
+        capital,
+        timezone,
+        language,
+        dialCode,
+        population,
+        currency,
+        region,
+        subregion
+      )
+    })
+}
+
+/*
   const req = await fetch('http://localhost:3000/data')
   try {
     const travelData = await req.json()
     document.getElementById('picture').src = imageURL
-    /*document.getElementById('picture').alt = travelData.destination*/
-    document.getElementById(
-      'location'
-    ).innerHTML = `Destination: ${travelData.destination}`
-    document.getElementById(
-      'outbound'
-    ).innerHTML = `Trip Start: ${travelData.dateDepart} `
-    document.getElementById(
-      'inbound'
-    ).innerHTML = `Trip End: ${travelData.dateReturn}`
-    document.getElementById(
-      'tripDuration'
-    ).innerHTML = `Trip Duration: ${travelData.tripDuration} days`
-    if (travelData.daysTillDepart === 1) {
-      document.getElementById('daysTillDepart').innerHTML =
-        'Your trip starts tomorrow!'
-    } else {
-      document.getElementById(
-        'daysTillDepart'
-      ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
-    }
+    document.getElementById('picture').alt = travelData.destination
+  if trip is less than 4 days away, display the current weather
+*/
 
+/*
+  if (travelData.daysTillDepart <= 1) {
     document.getElementById(
-      'capital'
-    ).innerHTML = `Capital: ${countryData.capital}`
-    document.getElementById('language').innerHTML =
-      'Language(s): ' +
-      countryData.languages
-        .filter(n => n.name)
-        .map(n => `${n.name}`)
-        .join(', ')
-    document.getElementById('diallingcode').innerHTML =
-      'Dialling Code: +' + countryData.callingCodes[0]
-    document.getElementById(
-      'population'
-    ).innerHTML = `Population: ${countryData.population}`
-
-    //if trip is less than 4 days away, display the current weather
-    if (travelData.daysTillDepart <= 1) {
-      document.getElementById(
-        'weatherCurrent'
-      ).innerHTML = `Today\'s weather: ${travelData.data[0].temp} °C `
-      const weatherIcon = document.createElement('img')
-      weatherIcon.id = 'icon'
-      weatherIcon.src =
-        'https://www.weatherbit.io/static/img/icons' +
-        travelData.data[0].weather.icon +
-        '.png'
-      document.getElementById('weatherCurrent').appendChild(weatherIcon)
-    } else {
-      document.getElementById('weatherHeading').innerHTML =
-        '16- Day Weather Forecast'
-
-      for (let i = 0; i < 16; i++) {
-        const weatherForecast = document.getElementById('weatherForecast')
-
-        const date = document.createElement('div')
-        date.textContent = travelData.data[i].datetime
-        const highTemp = document.createElement('div')
-        highTemp.textContent = `Max temp: ${travelData.data[i].high_temp}`
-        const lowTemp = document.createElement('div')
-        lowTemp.textContent = `Min temp: ${travelData.data[i].low_temp}`
-        const icon = document.createElement('img')
-        icon.src =
-          'https://www.weatherbit.io/static/img/icons/' +
-          travelData.data[i].weather.icon +
-          '.png'
-        icon.alt = 'weather icon'
-
-        weatherForecast.appendChild(date)
-        weatherForecast.appendChild(highTemp)
-        weatherForecast.appendChild(icon)
-        weatherForecast.appendChild(lowTemp)
-        weatherForecast.appendChild(icon)
-      }
-    }
-  } catch (error) {
-    console.log('error', error)
+      'weatherCurrent'
+    ).innerHTML = `Today\'s weather: ${travelData.data[0].temp} °C `
+    const weatherIcon = document.createElement('img')
+    weatherIcon.id = 'icon'
+    weatherIcon.src =
+      'https://www.weatherbit.io/static/img/icons' +
+      travelData.data[0].weather.icon +
+      '.png'
+    document.getElementById('weatherCurrent').appendChild(weatherIcon)
+  } else {
+    document.getElementById('weatherHeading').innerHTML =
+      '16- Day Weather Forecast'
   }
-}
+  for (let i = 0; i < 16; i++) {
+    const weatherForecast = document.getElementById('weatherForecast')
+
+    const date = document.createElement('div')
+    date.textContent = travelData.data[i].datetime
+    const highTemp = document.createElement('div')
+    highTemp.textContent = `Max temp: ${travelData.data[i].high_temp}`
+    const lowTemp = document.createElement('div')
+    lowTemp.textContent = `Min temp: ${travelData.data[i].low_temp}`
+    const icon = document.createElement('img')
+    icon.src =
+      'https://www.weatherbit.io/static/img/icons/' +
+      travelData.data[i].weather.icon +
+      '.png'
+    icon.alt = 'weather icon'
+
+    weatherForecast.appendChild(date)
+    weatherForecast.appendChild(highTemp)
+    weatherForecast.appendChild(icon)
+    weatherForecast.appendChild(lowTemp)
+    weatherForecast.appendChild(icon)
+  }
+  catch (error) {
+      console.log('error', error)
+    }
+    */

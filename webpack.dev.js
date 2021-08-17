@@ -5,6 +5,16 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 const TerserJSPlugin = require('terser-webpack-plugin')
+var sass = require('sass')
+
+sass.render(
+  {
+    file: 'style.scss'
+  },
+  function (err, result) {
+    /*...*/
+  }
+)
 
 module.exports = {
   entry: './src/client/index.js',

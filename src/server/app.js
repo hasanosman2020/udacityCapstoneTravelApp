@@ -47,6 +47,7 @@ function addData (req, res) {
     capital: req.body.capital,
     population: req.body.population,
     language: req.body.language,
+    diallingCode: req.body.callingCodes,
     region: req.body.region,
     subregion: req.body.subregion
   }
@@ -58,12 +59,20 @@ function addData (req, res) {
   travelData.daysTillDepart = req.body.daysTillDepart
   travelData.tripDuration = req.body.tripDuration
 
+  countryData.data = req.body.name
+  countryData.capital = req.body.capital
+  countryData.population = req.body.population
+  countryData.language = req.body.language
+  countryData.diallingcode = req.body.callingCodes
+  countryData.region = req.body.subregion
+  countryData.subregion = req.body.subregion
+
   res.send(newData)
 }
 
 //GET endpoint gets the data for the UI
 app.get('/data', function (req, res) {
-  res.send(travelData)
+  res.send(newData)
 })
 
 module.exports = app

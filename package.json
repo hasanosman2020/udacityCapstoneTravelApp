@@ -8,7 +8,7 @@
     "test:watch": "jest --watch",
     "start": "node src/server/server.js",
     "build": "webpack",
-    "build-prod": " webpack --config webpack.prod.js",
+    "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack-dev-server --config webpack.dev.js --open",
     "start-both": "npm-run-all --parallel start build-dev"
   },
@@ -24,8 +24,9 @@
   "homepage": "https://github.com/hasanosman2020/udacityCapstoneTravelApp#readme",
   "dependencies": {
     "@babel/runtime": "^7.14.8",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^6.0.1",
     "regenerator-runtime": "^0.13.7",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
@@ -55,7 +56,7 @@
     "supertest": "^6.1.4",
     "terser-webpack-plugin": "^4.0.0",
     "url-loader": "^4.1.1",
-    "webpack-dev-server": "^3.7.2",
+    "webpack-dev-server": "^1.16.5",
     "workbox-webpack-plugin": "^6.1.5"
   }
 }
