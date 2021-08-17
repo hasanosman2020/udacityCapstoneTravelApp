@@ -38,6 +38,7 @@ function displayCountryInfo (countryByAlpha3Code) {
   )
   console.log(countryData)
 
+  document.getElementById('countryname').innerHTML = countryData.name
   document.querySelector('#flag').src = countryData.flag
   document.getElementById('flagname').innerHTML = `Flag of ${countryData.name}`
 
@@ -69,4 +70,4 @@ function displayCountryInfo (countryByAlpha3Code) {
   document.getElementById('region').innerHTML = `Region: ${countryData.region}`
   document.getElementById('subregion').innerHTML =
     'Sub-Region: ' + countryData.subregion
-}
+}*/
