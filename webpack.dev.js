@@ -19,9 +19,12 @@ module.exports = {
     minimizer: [new TerserJSPlugin({}), new OptimizeCssAssetsPlugin({})]
   },
   devServer: {
+    proxy: {
+      '/api': 'http://localhost:3000'
+    },
     contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    port: 3000,
     //writeToDisk: true,
     hot: true
   },

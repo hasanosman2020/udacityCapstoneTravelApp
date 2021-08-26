@@ -1,2 +1,3 @@
-const app = require('./app')
+let app
+app = require('./app')
 app.listen(3000, () => console.log('server starting on port 3000'))
