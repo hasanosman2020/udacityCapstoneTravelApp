@@ -2,7 +2,6 @@
 - adjust the size of country image
 */
 
-import { displayCountryInfo } from './countrieslist'
 import fetch from 'node-fetch'
 let countries
 /*Global Variables*/

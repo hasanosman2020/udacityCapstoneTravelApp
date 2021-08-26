@@ -7,7 +7,7 @@
     "test": "jest  --detectOpenHandles --watchAll",
     "test:watch": "jest --watch",
     "start": "node src/server/server.js",
-    "build": "webpack",
+    "build": "webpack --config webpack.dev.js",
     "build-prod": " webpack --config webpack.prod.js",
     "build-dev": "webpack-dev-server --config webpack.dev.js --open",
     "start-both": "npm-run-all --parallel start build-dev"
@@ -27,6 +27,7 @@
     "chokidar": "^3.5.2",
     "express": "^4.17.1",
     "fsevents": "^2.3.2",
+    "node-sass": "^4.14.1",
     "regenerator-runtime": "^0.13.7",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
