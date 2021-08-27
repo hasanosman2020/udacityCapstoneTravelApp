@@ -188,18 +188,18 @@ const updateUI = async imageURL => {
 
     document.getElementById(
       'capital'
-    ).innerHTML = `Capital: ${countryData.capital}`
+    ).innerHTML = `Capital: ${travelData.capital}`
     document.getElementById('language').innerHTML =
       'Language(s): ' +
-      countryData.languages
+      data.languages
         .filter(n => n.name)
         .map(n => `${n.name}`)
         .join(', ')
     document.getElementById('diallingcode').innerHTML =
-      'Dialling Code: +' + countryData.callingCodes[0]
+      'Dialling Code: +' + travelData.callingCodes[0]
     document.getElementById(
       'population'
-    ).innerHTML = `Population: ${countryData.population}`
+    ).innerHTML = `Population: ${travelData.population}`
 
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 1) {

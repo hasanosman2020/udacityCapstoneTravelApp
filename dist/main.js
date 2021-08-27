@@ -352,20 +352,20 @@ const updateUI = async imageURL => {
       ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
     }
 
-    document.getElementById(
-      'capital'
-    ).innerHTML = `Capital: ${countryData.capital}`
+    /*
+    document.getElementById('capital').innerHTML = `Capital: ${data.capital}`
     document.getElementById('language').innerHTML =
       'Language(s): ' +
-      countryData.languages
+      data.languages
         .filter(n => n.name)
         .map(n => `${n.name}`)
         .join(', ')
     document.getElementById('diallingcode').innerHTML =
-      'Dialling Code: +' + countryData.callingCodes[0]
+      'Dialling Code: +' + data.callingCodes[0]
     document.getElementById(
       'population'
-    ).innerHTML = `Population: ${countryData.population}`
+    ).innerHTML = `Population: ${data.population}`
+*/
 
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 1) {
