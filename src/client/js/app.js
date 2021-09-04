@@ -1,7 +1,7 @@
 /*TODO
 - adjust the size of country image
 */
-
+import { displayCountryInfo } 
 import fetch from 'node-fetch'
 let countries
 /*Global Variables*/
@@ -38,15 +38,14 @@ export async function performAction (e) {
     weatherbitBaseUrl = weatherbitForecast
   }
 
-  getGeonamesData(destination_city)
-    .then(function (data) {
+  getGeonamesData(destination_city).then(
+    function (data) {
       return getWeatherbitData(
         weatherbitBaseUrl,
         data.geonames[0].lat,
         data.geonames[0].lng,
         weatherbitApiKey
       )
-    })
     .then(function (data) {
       return postData('/', {
         data: data.data,
@@ -57,16 +56,20 @@ export async function performAction (e) {
         daysTillDepart: daysTillDepart
       })
     })
-    .then(function (data) {
-      return getPixabayData(pixabayBaseUrl, pixabayApiKey, destination_city)
-    })
-    .then(function (data) {
-      updateUI(data.hits[0].imageURL)
-    })
-  /*.then(function (data) {
+    .then(
+        function (data) {
+          return getPixabayData(pixabayBaseUrl, pixabayApiKey, destination_city)
+        }}
+        .then(function (data) {
+          updateUI(data.hits[0].imageURL)
+        })
+})
+    }
+  
+
+/*.then(function (data) {
       return getRestCountriesInfo(countriesData)
     })*/
-}
 
 //Function that generates the countdown to date of departure
 function getDaysTillDepart (dateDepart) {
