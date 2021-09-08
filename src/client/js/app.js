@@ -1,9 +1,5 @@
-/*TODO
-- adjust the size of country image
-*/
-import { displayCountryInfo } 
 import fetch from 'node-fetch'
-let countries
+import './countriesList'
 /*Global Variables*/
 //Geonames API
 const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
@@ -38,14 +34,17 @@ export async function performAction (e) {
     weatherbitBaseUrl = weatherbitForecast
   }
 
-  getGeonamesData(destination_city).then(
-    function (data) {
+  getGeonamesData(destination_city)
+    .then(function (data) {
+      console.log(data)
       return getWeatherbitData(
         weatherbitBaseUrl,
         data.geonames[0].lat,
         data.geonames[0].lng,
+        data.geonames[0].countryCode,
         weatherbitApiKey
       )
+    })
     .then(function (data) {
       return postData('/', {
         data: data.data,
@@ -56,20 +55,16 @@ export async function performAction (e) {
         daysTillDepart: daysTillDepart
       })
     })
-    .then(
-        function (data) {
-          return getPixabayData(pixabayBaseUrl, pixabayApiKey, destination_city)
-        }}
-        .then(function (data) {
-          updateUI(data.hits[0].imageURL)
-        })
-})
-    }
-  
-
-/*.then(function (data) {
+    .then(function (data) {
+      return getPixabayData(pixabayBaseUrl, pixabayApiKey, destination_city)
+    })
+    .then(function (data) {
+      updateUI(data.hits[0].imageURL)
+    })
+  /*.then(function (data) {
       return getRestCountriesInfo(countriesData)
     })*/
+}
 
 //Function that generates the countdown to date of departure
 function getDaysTillDepart (dateDepart) {
@@ -115,7 +110,9 @@ export const getWeatherbitData = async (weatherbitBaseUrl, lat, lng) => {
   //call API
   try {
     const data = await res.json()
-    //console.log(data)
+    console.log(data)
+    let countryCode = data.country_code
+    console.log(countryCode)
     return data
   } catch (error) {
     console.log('error', error)
@@ -189,21 +186,24 @@ const updateUI = async imageURL => {
       ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
     }
 
+    /*
     document.getElementById(
       'capital'
-    ).innerHTML = `Capital: ${travelData.capital}`
-    document.getElementById('language').innerHTML =
-      'Language(s): ' +
-      data.languages
-        .filter(n => n.name)
-        .map(n => `${n.name}`)
-        .join(', ')
+    ).innerHTML = `Capital: ${countryData.capital}`
+    document.getElementById(
+      'language'
+    ).innerHTML = `Language(s): ${countryData.languages}`
+*/
+    //.filter(n => n.name)
+    //.map(n => `${n.name}`)
+    //.join(', ')
+    /*
     document.getElementById('diallingcode').innerHTML =
-      'Dialling Code: +' + travelData.callingCodes[0]
+      'Dialling Code: +' + countryData.callingCodes[0]
     document.getElementById(
       'population'
-    ).innerHTML = `Population: ${travelData.population}`
-
+    ).innerHTML = `Population: ${countryData.population}`
+*/
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 1) {
       document.getElementById(
