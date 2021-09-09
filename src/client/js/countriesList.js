@@ -73,13 +73,16 @@ function displayCountryInfo (countryByAlpha3Code) {
     'Sub-Region: ' + countryData.subregion
 }*/
 
+/*
 const countriesList = document.getElementById('countries')
 let countries //this will contain the fetched data
 
 //Event Listeners
-countriesList.addEventListener('change', function (event) {
-  console.log(event.target)
-})
+countriesList.addEventListener('change', countrySelection)
+
+function countrySelection (event) {
+  displayCountryInfo(event.target.value)
+}
 
 /*
 fetch('https://restcountries.eu/rest/v2/all')
@@ -95,6 +98,8 @@ fetch('https://restcountries.eu/rest/v2/all')
     console.log('error', err)
   })
 */
+
+/*
 fetch('https://restcountries.eu/rest/v2/all')
   .then(res => res.json())
   .then(data => initialise(data))
@@ -112,7 +117,8 @@ function initialise (countriesData) {
 
   //document.getElementById('countries').innerHTML = options
   countriesList.innerHTML = options
-  displayCountryInfo('FR')
+  console.log(countriesList)
+  displayCountryInfo(countriesList[countriesList.selectedIndex].value)
 }
 
 function displayCountryInfo (countryByAlpha2Code) {

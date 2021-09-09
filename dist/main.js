@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************!*\
   !*** ./src/client/js/app.js ***!
   \******************************/
-/*! exports provided: performAction, getWeatherbitData, getPixabayData, postData */
+/*! exports provided: performAction, getWeatherbitData, getPixabayData, getRestCountriesData, postData, updateUI */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -161,7 +161,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "performAction", function() { return performAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getWeatherbitData", function() { return getWeatherbitData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getPixabayData", function() { return getPixabayData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRestCountriesData", function() { return getRestCountriesData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postData", function() { return postData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUI", function() { return updateUI; });
 /* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! node-fetch */ "./node_modules/node-fetch/browser.js");
 /* harmony import */ var node_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(node_fetch__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _countriesList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./countriesList */ "./src/client/js/countriesList.js");
@@ -169,6 +171,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /*Global Variables*/
+let countryCode
 //Geonames API
 const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
 
@@ -184,8 +187,11 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
 const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 
+//REST Countries API
+const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/alpha/'
+
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
-document.getElementById('depart_btn').addEventListener('click', performAction)
+document.addEventListener('DOMContentLoaded', performAction)
 
 async function performAction (e) {
   e.preventDefault()
@@ -228,6 +234,9 @@ async function performAction (e) {
     })
     .then(function (data) {
       updateUI(data.hits[0].imageURL)
+    })
+    .then(function (data) {
+      return getRestCountriesData(restCountriesBaseUrl, countryCode)
     })
   /*.then(function (data) {
       return getRestCountriesInfo(countriesData)
@@ -279,7 +288,7 @@ const getWeatherbitData = async (weatherbitBaseUrl, lat, lng) => {
   try {
     const data = await res.json()
     console.log(data)
-    let countryCode = data.country_code
+    countryCode = data.country_code
     console.log(countryCode)
     return data
   } catch (error) {
@@ -304,6 +313,20 @@ const getPixabayData = async (
   } catch (error) {
     console.log('error', error)
     alert('Cannot find your destination')
+  }
+}
+
+const getRestCountriesData = async (
+  restCountriesBaseUrl,
+  countryCode
+) => {
+  const res = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(`${restCountriesBaseUrl}${countryCode}`)
+  try {
+    const data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log('error', error)
   }
 }
 
@@ -501,13 +524,16 @@ function displayCountryInfo (countryByAlpha3Code) {
     'Sub-Region: ' + countryData.subregion
 }*/
 
+/*
 const countriesList = document.getElementById('countries')
 let countries //this will contain the fetched data
 
 //Event Listeners
-countriesList.addEventListener('change', function (event) {
-  console.log(event.target)
-})
+countriesList.addEventListener('change', countrySelection)
+
+function countrySelection (event) {
+  displayCountryInfo(event.target.value)
+}
 
 /*
 fetch('https://restcountries.eu/rest/v2/all')
@@ -523,6 +549,8 @@ fetch('https://restcountries.eu/rest/v2/all')
     console.log('error', err)
   })
 */
+
+/*
 fetch('https://restcountries.eu/rest/v2/all')
   .then(res => res.json())
   .then(data => initialise(data))
@@ -540,7 +568,8 @@ function initialise (countriesData) {
 
   //document.getElementById('countries').innerHTML = options
   countriesList.innerHTML = options
-  displayCountryInfo('FR')
+  console.log(countriesList)
+  displayCountryInfo(countriesList[countriesList.selectedIndex].value)
 }
 
 function displayCountryInfo (countryByAlpha2Code) {
