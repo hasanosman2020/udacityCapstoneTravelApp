@@ -191,7 +191,7 @@ const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/alpha/'
 
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
-document.addEventListener('DOMContentLoaded', performAction)
+document.getElementById('depart_btn').addEventListener('click', performAction)
 
 async function performAction (e) {
   e.preventDefault()
@@ -322,9 +322,41 @@ const getRestCountriesData = async (
 ) => {
   const res = await node_fetch__WEBPACK_IMPORTED_MODULE_0___default()(`${restCountriesBaseUrl}${countryCode}`)
   try {
-    const data = await res.json()
-    console.log(data)
-    return data
+    const countryData = await res.json()
+    console.log(countryData)
+
+    document.getElementById('country').innerHTML = `${countryData.name}`
+
+    document.getElementById(
+      'capital'
+    ).innerHTML = `Capital: ${countryData.capital}`
+    document.getElementById('language').innerHTML =
+      'Language(s): ' +
+      countryData.languages
+        .filter(n => n.name)
+        .map(n => `${n.name}`)
+        .join(', ')
+    document.getElementById('diallingcode').innerHTML =
+      'Dialling Code: +' + countryData.callingCodes[0]
+    document.getElementById('population').innerHTML =
+      'Population: ' + countryData.population.toLocaleString('en-US')
+    document.getElementById('currencies').innerHTML =
+      'Currency(ies): ' +
+      countryData.currencies
+        //.filter(c => c.name)
+        .map(c => `${c.name} (${c.code})`)
+        .join(', ')
+    document.getElementById(
+      'region'
+    ).innerHTML = `Region: ${countryData.region}`
+    document.getElementById(
+      'subregion'
+    ).innerHTML = `Sub-region: ${countryData.subregion}`
+    document.querySelector('#flag_container').innerHTML = `<img src="${
+      countryData.flag
+    }" alt="Flag of ${(countryData, name)}">`
+
+    //return countryData
   } catch (error) {
     console.log('error', error)
   }
@@ -482,8 +514,6 @@ fetch('https://restcountries.eu/rest/v2/all')
 //displayCountryInfo(countriesList[countriesList.selectedIndex].value)
 //}
 
-
-/*
 function displayCountryInfo (countryByAlpha3Code) {
   const countryData = countries.find(
     country => country.alpha3Code === countryByAlpha3Code
@@ -522,9 +552,8 @@ function displayCountryInfo (countryByAlpha3Code) {
   document.getElementById('region').innerHTML = `Region: ${countryData.region}`
   document.getElementById('subregion').innerHTML =
     'Sub-Region: ' + countryData.subregion
-}*/
+}
 
-/*
 const countriesList = document.getElementById('countries')
 let countries //this will contain the fetched data
 
@@ -535,7 +564,6 @@ function countrySelection (event) {
   displayCountryInfo(event.target.value)
 }
 
-/*
 fetch('https://restcountries.eu/rest/v2/all')
   .then(function (res) {
     console.log(res)
@@ -548,9 +576,7 @@ fetch('https://restcountries.eu/rest/v2/all')
   .catch(function (err) {
     console.log('error', err)
   })
-*/
 
-/*
 fetch('https://restcountries.eu/rest/v2/all')
   .then(res => res.json())
   .then(data => initialise(data))
@@ -602,15 +628,14 @@ function displayCountryInfo (countryByAlpha2Code) {
   }" alt="Flag of ${(countryData, name)}">`
 }
 
-/*countries = countriesData
-  //populate the countries list
-  let options = ' '
-  for (let i = 0; i < countries.length; i++) {
-    options += `<option value="${countries[i].alpha2Code}">${countries[i].name}</option>`
+countries = countriesData
+//populate the countries list
+let options = ' '
+for (let i = 0; i < countries.length; i++) {
+  options += `<option value="${countries[i].alpha2Code}">${countries[i].name}</option>`
 
-    //sdocument.getElementById('countries').innerHTML=options;
-    countriesList.innerHTML = options
-  }
+  //sdocument.getElementById('countries').innerHTML=options;
+  countriesList.innerHTML = options
 }
 */
 

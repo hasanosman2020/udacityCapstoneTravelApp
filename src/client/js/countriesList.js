@@ -31,8 +31,6 @@ fetch('https://restcountries.eu/rest/v2/all')
 //displayCountryInfo(countriesList[countriesList.selectedIndex].value)
 //}
 
-
-/*
 function displayCountryInfo (countryByAlpha3Code) {
   const countryData = countries.find(
     country => country.alpha3Code === countryByAlpha3Code
@@ -71,9 +69,8 @@ function displayCountryInfo (countryByAlpha3Code) {
   document.getElementById('region').innerHTML = `Region: ${countryData.region}`
   document.getElementById('subregion').innerHTML =
     'Sub-Region: ' + countryData.subregion
-}*/
+}
 
-/*
 const countriesList = document.getElementById('countries')
 let countries //this will contain the fetched data
 
@@ -84,7 +81,6 @@ function countrySelection (event) {
   displayCountryInfo(event.target.value)
 }
 
-/*
 fetch('https://restcountries.eu/rest/v2/all')
   .then(function (res) {
     console.log(res)
@@ -97,9 +93,7 @@ fetch('https://restcountries.eu/rest/v2/all')
   .catch(function (err) {
     console.log('error', err)
   })
-*/
 
-/*
 fetch('https://restcountries.eu/rest/v2/all')
   .then(res => res.json())
   .then(data => initialise(data))
@@ -151,14 +145,13 @@ function displayCountryInfo (countryByAlpha2Code) {
   }" alt="Flag of ${(countryData, name)}">`
 }
 
-/*countries = countriesData
-  //populate the countries list
-  let options = ' '
-  for (let i = 0; i < countries.length; i++) {
-    options += `<option value="${countries[i].alpha2Code}">${countries[i].name}</option>`
+countries = countriesData
+//populate the countries list
+let options = ' '
+for (let i = 0; i < countries.length; i++) {
+  options += `<option value="${countries[i].alpha2Code}">${countries[i].name}</option>`
 
-    //sdocument.getElementById('countries').innerHTML=options;
-    countriesList.innerHTML = options
-  }
+  //sdocument.getElementById('countries').innerHTML=options;
+  countriesList.innerHTML = options
 }
 */
