@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import './countriesList'
 /*Global Variables*/
+let countryCode
 //Geonames API
 const geonamesBaseUrl = 'http://api.geonames.org/searchJSON?q='
 
@@ -16,6 +17,10 @@ const weatherbitApiKey = '334b39cd7f05408190e076877f6411f9'
 const pixabayBaseUrl = 'https://pixabay.com/api/?key='
 const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 
+//REST Countries API
+const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/alpha/'
+
+document.addEventListener('DOMContentLoaded')
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
 document.getElementById('depart_btn').addEventListener('click', performAction)
 
@@ -60,6 +65,9 @@ export async function performAction (e) {
     })
     .then(function (data) {
       updateUI(data.hits[0].imageURL)
+    })
+    .then(function (data) {
+      return getRestCountriesData(restCountriesBaseUrl, countryCode)
     })
   /*.then(function (data) {
       return getRestCountriesInfo(countriesData)
@@ -111,7 +119,7 @@ export const getWeatherbitData = async (weatherbitBaseUrl, lat, lng) => {
   try {
     const data = await res.json()
     console.log(data)
-    let countryCode = data.country_code
+    countryCode = data.country_code
     console.log(countryCode)
     return data
   } catch (error) {
@@ -139,6 +147,20 @@ export const getPixabayData = async (
   }
 }
 
+export const getRestCountriesData = async (
+  restCountriesBaseUrl,
+  countryCode
+) => {
+  const res = await fetch(`${restCountriesBaseUrl}${countryCode}`)
+  try {
+    const data = await res.json()
+    console.log(data)
+    return data
+  } catch (error) {
+    console.log('error', error)
+  }
+}
+
 //Function to POST data
 export const postData = async (url = ' ', data = {}) => {
   //console.log(`Data is ${data}`)
@@ -159,7 +181,7 @@ export const postData = async (url = ' ', data = {}) => {
   }
 }
 
-const updateUI = async imageURL => {
+export const updateUI = async imageURL => {
   const req = await fetch('http://localhost:3000/data')
   try {
     const travelData = await req.json()
