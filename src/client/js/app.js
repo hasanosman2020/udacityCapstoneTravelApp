@@ -21,6 +21,10 @@ const pixabayApiKey = '22008827-e069452971dbec7aa6f1cef1a'
 const restCountriesBaseUrl = 'https://restcountries.eu/rest/v2/alpha/'
 
 /*Event Listener to add function to existing DOM element ('Let's Go!' button with id 'depart_btn') to create an eventwhen the button is clicked */
+document.getElementById('depart_btn').addEventListener('click', function () {
+  document.querySelector('.countryinfo').classList.add('animate')
+})
+
 document.getElementById('depart_btn').addEventListener('click', performAction)
 
 export async function performAction (e) {

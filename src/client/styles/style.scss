@@ -203,10 +203,12 @@ button {
   padding-left: 2.5rem;
   line-height: 200%;
   font-weight: bolder;
-  //white-space: nowrap;
-  //overflow: auto;
+}
+//white-space: nowrap;
+//overflow: auto;
+.animate {
   animation-name: slidein;
-  animation-duration: 1.5s;
+  animation-duration: 3s;
   animation-timing-function: ease-in;
 }
 
