@@ -5,6 +5,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const path = require('path')
 const webpack = require('webpack')
 const TerserJSPlugin = require('terser-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
   entry: './src/client/index.js',
@@ -95,6 +96,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       filename: 'style.css'
-    })
+    }),
+    new WorkboxPlugin.GenerateSW()
   ]
 }
