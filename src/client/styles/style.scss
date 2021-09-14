@@ -1,6 +1,7 @@
 /*  Basic Styling To Override Default For Basic HTML Elements */
 /* Reset style for HTML element on active to have no border*/
 /* Style for Placeholder Text*/
+
 @import "./header.scss";
 @import "./footer.scss";
 
@@ -14,7 +15,97 @@
 html {
   font-size: 100%;
 }
+header {
+  margin-top: 0;
+}
+body {
+  font-family: "Oswald", sans-serif;
+}
 
+.headline {
+  grid-area: headline;
+  padding-top: 1em;
+  font-family: "Bebas Neue", cursive;
+  font-size: 2.5rem;
+  letter-spacing: 0.025rem;
+  word-spacing: 0.1rem;
+  text-align: center;
+  text-decoration: underline;
+  width: 100%;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(301px, 1fr));
+  grid-template-areas:
+    "header header header"
+    ". firstscreen ."
+    ". secondscreen ."
+    ". picture ."
+    ". thirdscreen ."
+    ". flagcontainer ."
+    "footer footer footer";
+
+  margin: 2em;
+}
+#app > * {
+  grid-column: 2;
+}
+#firstscreen {
+  grid-area: firstscreen;
+}
+#secondscreen {
+  grid-area: secondscreen;
+}
+#thirdscreen {
+  grid-area: thirdscreen;
+}
+#traveldates {
+  text-align: center;
+  margin-top: 1.5em;
+}
+#flag {
+}
+.destination_city {
+  margin-bottom: 0.5em;
+}
+.departure {
+  margin-bottom: 0.5em;
+}
+.return {
+  margin-bottom: 0.5em;
+}
+.submit {
+  margin-bottom: 0.5em;
+}
+
+#picture {
+  grid-area: picture;
+  grid-column: 2;
+  //grid-row: span 2 / auto;
+  max-width: 70%;
+  height: auto;
+  //object-fit: cover;
+  object-position: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#countryinfo {
+  width: 80%;
+  height: auto;
+  padding: 0.4em;
+}
+#flagcontainer {
+  height: 30%;
+  width: 50%;
+  background-color: #fff;
+}
+#flagcontainer img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 //body {
 //margin: 1rem;
 //ßfont-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -25,6 +116,8 @@ html {
   margin-top: 1rem;
 }*/
 
+/*
+/*
 h3 {
   text-align: center;
   text-decoration: underline;
@@ -130,6 +223,7 @@ input {
 }
 
 /* Buttons styles start */
+/*
 button {
   display: block;
   width: 4.5rem;
@@ -167,8 +261,8 @@ button {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto;
-  grid-column: span 4 / auto;
-  grid-row: span 3 / auto;
+  grid-column: span 1 / 4;
+  grid-row: span 1 / auto;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-size: 1em;
@@ -186,7 +280,7 @@ button {
 #picture {
   grid-column: span 2 / auto;
   grid-row: span 2 / auto;
-  max-width: 75%;
+  max-width: 45%;
   height: auto;
   //object-fit: cover;
   //object-position: center;
@@ -197,15 +291,21 @@ button {
   text-align: center;
   background: #f5f5f5;
   border-radius: 50px;
-  grid-column: span 2 / auto;
-  grid-row: span 3 / auto;
+  /*grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto;*/
+//grid-column: span 1 / 4;
+//grid-row: span 3 / auto;
+/*
   padding-top: 0.5rem;
   padding-left: 2.5rem;
   line-height: 200%;
   font-weight: bolder;
+  width: 60%;
+  height: auto;
+  border: solid 3px purple;
+  //white-space: nowrap;
+  //overflow: auto;
 }
-//white-space: nowrap;
-//overflow: auto;
 .animate {
   animation-name: slidein;
   animation-duration: 3s;
@@ -228,15 +328,98 @@ button {
   padding-bottom: 1.5rem;
 }
 
+/*
 #flag_container {
   height: auto;
   background-color: #fff;
   //border: 1px solid #f0b020;
+  margin: 0 auto;
+  border: solid 3px red;
+  max-width: 50%;
 }
-
+*/
+/*
 #flag_container img {
   display: block;
-  width: 75%;
-  height: 75%;
-  border: solid 2px #f0b020;
+  width: 25%;
+  height: 25%;
+  // border: solid 2px #f0b020;
+  margin: 0 auto;
+  border: solid 3px green;
+/*}
+
+@media (max-width: 768px) {
+  #flag-container {
+    max-width: 30%;
+    max-height: 40%;
+  }
 }
+
+
+
+/*
+@viewport {
+  width: device-width;
+  zoom: 1;
+}
+@-ms-viewport {
+  width: device-width;
+  zoom: 1;
+}
+
+body {
+  width: 100%;
+  font-size: 1.5rem;
+}
+#app {
+  display: grid;
+  grid-template-areas: "logo" "headline" "traveldates" "locationimage" "travelinfo" "countryinfo" "weatherinfo";
+}
+
+#app > * {
+  grid-column: col-start / span 12;
+  margin: 0.5em;
+}
+
+.logo {
+  grid-area: logo;
+}
+.headline {
+  grid-area: headline;
+  padding-top: 0.5em;
+  font-family: "Bebas Neue", cursive;
+  font-size: 2.5rem;
+  letter-spacing: 0.025rem;
+  word-spacing: 0.1rem;
+  text-align: center;
+  width: 100%;
+}
+#traveldates {
+  grid-area: traveldates;
+  font-family: "Open Sans", sans-serif;
+}
+#location_image {
+  grid-area: locationimage;
+}
+.travelinfo {
+  grid-area: travelinfo;
+}
+.countryinfo {
+  grid-area: countryinfo;
+}
+.weatherinfo {
+  grid-area: weatherinfo;
+}
+
+@media screen and (max-width: 628px) {
+}
+@media screen and (min-width: 629px) {
+}
+@media screen and (min-width: 1024px) {
+}
+img {
+  width: auto;
+  max-width: 70%;
+  height: auto;
+}
+*/

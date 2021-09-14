@@ -4,10 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.google.com/share?selection.family=Montserrat:wght@100"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald&display=swap"
       rel="stylesheet"
     />
+
     <title>Travel App</title>
   <link href="style.css" rel="stylesheet"></head>
   <body id="container">
@@ -15,77 +20,76 @@
       <h1 class="logo">HasanOsman</h1>
       <!--<h2-- class="sub_logo">Software Engineer</h2-->
     </header>
-    <div id="app">
-      <section class="headline">Journey Planner</section>
-      <div id="traveldates">
-        <section class="destination_city">
-          <label for="destination_city">Enter city of destination</label>
-          <input
-            type="text"
-            id="destination_city"
-            placeholder="enter your destination"
-          />
-        </section>
-        <section class="departure">
-          <label for="dateDepart">Date of Departure:</label>
-          <input
-            type="date"
-            id="dateDepart"
-            placeholder="insert your departure date"
-          />
-        </section>
-        <section class="return">
-          <label for="dateReturn">Date of Return:</label>
-          <input
-            type="date"
-            id="dateReturn"
-            placeholder="insert your return date"
-          />
-        </section>
-        <section class="submit">
-          <button id="depart_btn" type="submit">Let's Go!</button>
+    <main id="app">
+      <div id="firstscreen">
+        <section class="headline">Trip Plan</section>
+        <div id="traveldates">
+          <section class="destination_city">
+            <label for="destination_city">Going to:</label>
+            <input
+              type="text"
+              id="destination_city"
+              placeholder="enter your destination"
+            />
+          </section>
+          <section class="departure">
+            <label for="dateDepart">Leaving on:</label>
+            <input
+              type="date"
+              id="dateDepart"
+              placeholder="insert your departure date"
+            />
+          </section>
+          <section class="return">
+            <label for="dateReturn">Returning on:</label>
+            <input
+              type="date"
+              id="dateReturn"
+              placeholder="insert your return date"
+            />
+          </section>
+          <section class="submit" id="button">
+            <button id="depart_btn" type="submit">Let's Go!</button>
+          </section>
+        </div>
+      </div>
+      <div id="secondscreen">
+        <img id="picture" />
+
+        <section class="travelinfo">
+          <div id="location"></div>
+          <div id="outbound"></div>
+          <div id="inbound"></div>
+          <div id="tripDuration"></div>
+          <div id="daysTillDepart"></div>
+          <div id="destination"></div>
+          <div id="weatherCurrent"></div>
+          <p id="weatherHeading"></p>
+          <div id="weatherForecast"></div>
         </section>
       </div>
-
-      <img id="picture" />
-
-      <section class="travelinfo">
-        <div id="location"></div>
-        <div id="outbound"></div>
-        <div id="inbound"></div>
-        <div id="tripDuration"></div>
-        <div id="daysTillDepart"></div>
-        <div id="destination"></div>
-        <div id="weatherCurrent"></div>
-        <p id="weatherHeading"></p>
-        <div id="weatherForecast"></div>
-      </section>
-
-      <section class="destination">
-        <!--<label for="countriesData">Please select your <span style=text-decoration:underline;>country</span> of destination:</label>
-        <select id="countriesData"></select>-->
-      <section class="countryinfo">
+      <div id="countryinfo">
+        <div id="country"></div>
+        <div id="flagcontainer"></div>
         <div id="infocontainer">
-          <div id='countries'></div>
-           <div id="country"></div>
+          <div id="countries"></div>
+          <div id="country"></div>
           <!--<h3>Useful Traveller's Information</h3>-->
-          <div id="flag_container"></div>
+          <div id="flag"></div>
           <div id="capital"></div>
-          <div id="population"></div>
           <div id="language"></div>
-          <div id="currencies"></div>
           <div id="diallingcode"></div>
           <div id="timezones"></div>
+          <div id="currencies"></div>
+          <div id="population"></div>
           <div id="region"></div>
           <div id="subregion"></div>
         </div>
-      </section>
-    </section>
+      </div>
     </main>
     <footer id="footer">
       Copyright&copy 2021<strong>Hasan Osman</strong>. All Rights Reserved.
     </footer>
-    </div>
     <!--<script>
       //Check that service workers are supported
       if ('serviceWorker' in navigator){
