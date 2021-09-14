@@ -159,11 +159,16 @@ export const getRestCountriesData = async (
     const countryData = await res.json()
     console.log(countryData)
 
+    document.getElementById(
+      'travelconfirmation'
+    ).innerHTML = `<p>You are travelling to ${countryData.name}!</p>`
     document.getElementById('country').innerHTML = `${countryData.name}`
-
+    document.querySelector('#flagcontainer').innerHTML = `<img src="${
+      countryData.flag
+    }" alt="Flag of ${(countryData, name)}">`
     document.getElementById(
       'capital'
-    ).innerHTML = `Capital: ${countryData.capital}`
+    ).innerHTML7 = `Capital: ${countryData.capital}`
     document.getElementById('language').innerHTML =
       'Language(s): ' +
       countryData.languages
@@ -172,23 +177,22 @@ export const getRestCountriesData = async (
         .join(', ')
     document.getElementById('diallingcode').innerHTML =
       'Dialling Code: +' + countryData.callingCodes[0]
-    document.getElementById('population').innerHTML =
-      'Population: ' + countryData.population.toLocaleString('en-US')
+    document.getElementById('timezones').innerHTML =
+      'Timezone(s): ' + countryData.timezones
     document.getElementById('currencies').innerHTML =
       'Currency(ies): ' +
       countryData.currencies
-        //.filter(c => c.name)
-        .map(c => `${c.name} (${c.code})`)
+        .map(c => `${c.name} (${c.code})(${c.symbol})`)
         .join(', ')
+
+    document.getElementById('population').innerHTML =
+      'Population: ' + countryData.population.toLocaleString('en-US')
     document.getElementById(
       'region'
     ).innerHTML = `Region: ${countryData.region}`
     document.getElementById(
       'subregion'
     ).innerHTML = `Sub-region: ${countryData.subregion}`
-    document.querySelector('#flag_container').innerHTML = `<img src="${
-      countryData.flag
-    }" alt="Flag of ${(countryData, name)}">`
 
     //return countryData
   } catch (error) {
