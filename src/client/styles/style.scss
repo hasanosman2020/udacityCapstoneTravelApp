@@ -38,24 +38,24 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(301px, 1fr));
   grid-template-areas:
-    "header header header"
-    ". firstscreen ."
-    ". secondscreen ."
-    ". picture ."
-    ". thirdscreen ."
+    ". travelconf ."
     ". flagcontainer ."
-    "footer footer footer";
-
+    ". firstscreen ."
+    ". locationimage ."
+    ". weatherForecast .";
   margin: 2em;
 }
 #app > * {
   grid-column: 2;
+  background-color: #fffff8;
+  color: #1a1d25;
 }
 #firstscreen {
   grid-area: firstscreen;
 }
-#secondscreen {
-  grid-area: secondscreen;
+#locationimage {
+  grid-area: locationimage;
+  margin: 0 auto;
 }
 #thirdscreen {
   grid-area: thirdscreen;
@@ -80,31 +80,46 @@ body {
 }
 
 #picture {
-  grid-area: picture;
-  grid-column: 2;
-  //grid-row: span 2 / auto;
-  max-width: 70%;
-  height: auto;
-  //object-fit: cover;
-  object-position: center;
-  margin: 0 auto;
-  text-align: center;
-}
+  display: grid;
+  grid-area: locationimage;
 
-#countryinfo {
+  //grid-row: span 2 / auto;
   width: 80%;
-  height: auto;
-  padding: 0.4em;
+  height: 80%;
+  margin: 0 auto;
 }
 #flagcontainer {
+  grid-area: flagcontainer;
   height: 30%;
   width: 50%;
-  background-color: #fff;
 }
 #flagcontainer img {
+  grid-area: flagcontainer;
   display: block;
   width: 100%;
   height: 100%;
+}
+#weatherheading {
+  text-decoration: underline;
+  text-align: center;
+  padding: 0.25em;
+}
+
+#weatherForecast {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 80%;
+  flex-direction: row;
+  grid-area: weatherForecast;
+  padding: 0.25em;
+}
+#travelconfirmation {
+  grid-area: travelconf;
+  font-family: "Oswald", sans-serif;
+}
+#date {
+  padding: 0.1em;
+  display: block;
 }
 //body {
 //margin: 1rem;

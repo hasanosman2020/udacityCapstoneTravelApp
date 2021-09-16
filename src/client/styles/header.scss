@@ -1,11 +1,11 @@
 header {
   width: 100%;
-  // position: fixed;
+  //position: fixed;
   background-color: #b8b8b8;
   border-bottom: 3px solid #f0b020;
   align-items: flex-start;
   align-content: flex-start;
-  grid-area: header;
+  margin-top: 0;
 }
 
 h1 {
@@ -20,4 +20,5 @@ h1 {
   color: #1a1d25;
   padding: 0.08rem;
   padding-left: 1rem;
+  margin-top: 0;
 }

@@ -329,13 +329,16 @@ const getRestCountriesData = async (
     const countryData = await res.json()
     console.log(countryData)
 
+    document.getElementById(
+      'travelconfirmation'
+    ).innerHTML = `<p>You are travelling to ${countryData.name}!</p>`
     document.getElementById('country').innerHTML = `${countryData.name}`
-    document.querySelector('#flagcontainer').innerHTML = `<img src="${
-      countryData.flag
-    }" alt="Flag of ${(countryData, name)}">`
+    document.querySelector(
+      '#flagcontainer'
+    ).innerHTML = `<img src="${countryData.flag}" alt="Flag of ${countryData.name}">`
     document.getElementById(
       'capital'
-    ).innerHTML7 = `Capital: ${countryData.capital}`
+    ).innerHTML = `Capital: ${countryData.capital}`
     document.getElementById('language').innerHTML =
       'Language(s): ' +
       countryData.languages
