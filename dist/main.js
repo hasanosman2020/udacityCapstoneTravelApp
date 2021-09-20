@@ -347,8 +347,6 @@ const getRestCountriesData = async (
         .join(', ')
     document.getElementById('diallingcode').innerHTML =
       'Dialling Code: +' + countryData.callingCodes[0]
-    document.getElementById('timezones').innerHTML =
-      'Timezone(s): ' + countryData.timezones
     document.getElementById('currencies').innerHTML =
       'Currency(ies): ' +
       countryData.currencies
