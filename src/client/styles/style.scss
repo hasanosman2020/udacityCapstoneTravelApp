@@ -1,7 +1,3 @@
-/*  Basic Styling To Override Default For Basic HTML Elements */
-/* Reset style for HTML element on active to have no border*/
-/* Style for Placeholder Text*/
-
 @import "./header.scss";
 @import "./footer.scss";
 
@@ -122,121 +118,6 @@ body {
   padding: 1.5em;
   color: black;
 }
-//body {
-//margin: 1rem;
-//ßfont-family: -apple-system, BlinkMacSystemFont, sans-serif;
-// background-image: url("../views/img/travelbgimg.png");
-//}
-/*
-.headline {
-  margin-top: 1rem;
-}*/
-
-/*
-/*
-h3 {
-  text-align: center;
-  text-decoration: underline;
-}
-
-#container {
-  //.display: flex;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 5px;
-  grid-template-rows: auto;
-  grid-template-areas:
-    "header header header"
-    "main main main"
-    "footer footer footer";
-  // justify-content: center;
-  height: 100vh;
-  background: #fffff8;
-  color: #1a1d25;
-  //justify-content: center;
-  //grid-gap: 1em;
-  font-family: "Oswald", sans-serif;
-}
-
-#app {
-  display: grid;
-  //grid-template-rows: repeat(4, 1fr);
-  //grid-template-columns: repeat(4, 1fr);
-  grid-area: main;
-  overflow: auto;
-  padding: 50px 10px;
-}
-@media (min-width: 600px) {
-  #app {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-#app > header {
-  grid-area: header;
-}
-label {
-  display: block;
-  //font-size: 1em;
-  font-family: Oswald, sans-serif;
-}
-
-section.headline {
-  //grid-area: header;
-  display: flex;
-  flex-direction: row;
-  // grid-column: span 3 / auto;
-  //margin: 0 auto;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  text-decoration: underline;
-  font-size: 1.75em;
-}
-
-#traveldates {
-  grid-row: span 3 / auto;
-}
-section.destination_city {
-  padding-left: 3em;
-  padding-bottom: 2em;
-  border-bottom: 2px solid #f0b020;
-  border-top: 2px solid #f0b020;
-  font-size: 1.5em;
-}
-
-section.departure,
-section.return {
-  padding-top: 1em;
-  padding-left: 3em;
-  font-size: 1.5em;
-}
-
-section.return {
-  padding-bottom: 4em;
-  border-bottom: 2px solid #f0b020;
-}
-
-#app > footer {
-  grid-area: footer;
-}
-label {
-  display: block;
-  font-size: 0.75em;
-  font-family: Oswald, sans-serif;
-}
-
-input {
-  display: block;
-  border: none;
-  margin-left: 10px;
-  margin-top: 3px;
-  font-size: 0.65em;
-  color: #1a1d25;
-  background: #b8b8b8;
-
-  &:focus {
-    outline: 2px solid #f0b020;
-  }
-}
 
 /* Buttons styles start */
 
@@ -272,19 +153,7 @@ button {
     transform: scale(0.99);
   }
 }
-/*
-#weatherForecast {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;
-  grid-column: span 1 / 4;
-  grid-row: span 1 / auto;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-size: 1em;
-  padding-top: 1.5rem;
-}
-*/
+
 #weatherHeading {
   font-size: 1em;
   text-decoration: underline;
@@ -292,27 +161,11 @@ button {
   color: #614400;
   margin: 1rem;
 }
-/*
-#picture {
-  grid-column: span 2 / auto;
-  grid-row: span 2 / auto;
-  max-width: 45%;
-  height: auto;
-  //object-fit: cover;
-  //object-position: center;
-  margin: 2rem auto;
-}
-*/
+
 #countryinfo {
   text-align: center;
   background: #f5f5f5;
   border-radius: 10%;
-
-  /*grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: auto;*/
-  //grid-column: span 1 / 4;
-  //grid-row: span 3 / auto;
-
   padding-top: 0.5rem;
   line-height: 170%;
   font-weight: bolder;
@@ -321,124 +174,4 @@ button {
   margin: 0 auto;
 }
 /*
-  border: solid 3px purple;
-  //white-space: nowrap;
-  //overflow: auto;
-}
-.animate {
-  animation-name: slidein;
-  animation-duration: 3s;
-  animation-timing-function: ease-in;
-}
-
-@keyframes slidein {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
-}
-
-.travelinfo {
-  //margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.2em;
-  padding-bottom: 1.5rem;
-}
-
-/*
-#flag_container {
-  height: auto;
-  background-color: #fff;
-  //border: 1px solid #f0b020;
-  margin: 0 auto;
-  border: solid 3px red;
-  max-width: 50%;
-}
-*/
-/*
-#flag_container img {
-  display: block;
-  width: 25%;
-  height: 25%;
-  // border: solid 2px #f0b020;
-  margin: 0 auto;
-  border: solid 3px green;
-/*}
-
-@media (max-width: 768px) {
-  #flag-container {
-    max-width: 30%;
-    max-height: 40%;
-  }
-}
-
-
-
-/*
-@viewport {
-  width: device-width;
-  zoom: 1;
-}
-@-ms-viewport {
-  width: device-width;
-  zoom: 1;
-}
-
-body {
-  width: 100%;
-  font-size: 1.5rem;
-}
-#app {
-  display: grid;
-  grid-template-areas: "logo" "headline" "traveldates" "locationimage" "travelinfo" "countryinfo" "weatherinfo";
-}
-
-#app > * {
-  grid-column: col-start / span 12;
-  margin: 0.5em;
-}
-
-.logo {
-  grid-area: logo;
-}
-.headline {
-  grid-area: headline;
-  padding-top: 0.5em;
-  font-family: "Bebas Neue", cursive;
-  font-size: 2.5rem;
-  letter-spacing: 0.025rem;
-  word-spacing: 0.1rem;
-  text-align: center;
-  width: 100%;
-}
-#traveldates {
-  grid-area: traveldates;
-  font-family: "Open Sans", sans-serif;
-}
-#location_image {
-  grid-area: locationimage;
-}
-.travelinfo {
-  grid-area: travelinfo;
-}
-.countryinfo {
-  grid-area: countryinfo;
-}
-.weatherinfo {
-  grid-area: weatherinfo;
-}
-
-@media screen and (max-width: 628px) {
-}
-@media screen and (min-width: 629px) {
-}
-@media screen and (min-width: 1024px) {
-}
-img {
-  width: auto;
-  max-width: 70%;
-  height: auto;
-}
-*/
+  
