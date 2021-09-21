@@ -1,5 +1,4 @@
 import fetch from 'node-fetch'
-import './countriesList'
 /*Global Variables*/
 let countryCode
 //Geonames API
@@ -223,7 +222,6 @@ export const updateUI = async imageURL => {
   try {
     const travelData = await req.json()
     document.getElementById('picture').src = imageURL
-    /*document.getElementById('picture').alt = travelData.destination*/
     document.getElementById(
       'location'
     ).innerHTML = `Destination: ${travelData.destination}`
@@ -245,24 +243,6 @@ export const updateUI = async imageURL => {
       ).innerHTML = `You have ${travelData.daysTillDepart} days to go before your trip starts!`
     }
 
-    /*
-    document.getElementById(
-      'capital'
-    ).innerHTML = `Capital: ${countryData.capital}`
-    document.getElementById(
-      'language'
-    ).innerHTML = `Language(s): ${countryData.languages}`
-*/
-    //.filter(n => n.name)
-    //.map(n => `${n.name}`)
-    //.join(', ')
-    /*
-    document.getElementById('diallingcode').innerHTML =
-      'Dialling Code: +' + countryData.callingCodes[0]
-    document.getElementById(
-      'population'
-    ).innerHTML = `Population: ${countryData.population}`
-*/
     //if trip is less than 4 days away, display the current weather
     if (travelData.daysTillDepart <= 1) {
       document.getElementById(
